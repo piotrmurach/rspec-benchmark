@@ -25,7 +25,7 @@ RSpec.describe RSpec::Benchmark do
     bench = Benchmark::Performance.new
     sample = bench.run(10) { 'x' * 1_000_000 }
     expect(sample.size).to eq(2)
-    expect(sample).to all(be < 0.002)
+    expect(sample).to all(be < 0.004)
   end
 
   it "passes asertion by performing below threshold" do
