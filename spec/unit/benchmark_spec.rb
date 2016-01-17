@@ -37,7 +37,7 @@ RSpec.describe RSpec::Benchmark do
   it "defines cycles per 100 microseconds" do
     bench = Benchmark::Iteration.new
     sample = bench.run_warmup { 'x' * 1_000_000 }
-    expect(sample).to be > 30
+    expect(sample).to be > 25
   end
 
   it "measures 10K iterations per second" do
