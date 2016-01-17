@@ -24,7 +24,7 @@ module RSpec
           return false unless block.is_a?(Proc)
           @bench = ::Benchmark::Performance.new
           @average, @stddev = @bench.run(@samples, &block)
-          (@average = @average.round(@scale)) <= @threshold
+          @average <= @threshold
         end
 
         def does_not_match?(block)
@@ -50,12 +50,12 @@ module RSpec
 
         def positive_failure_reason
           return 'wan not a block' unless @block.is_a?(Proc)
-          "performed above #{@average} "
+          "performed above #{@average.round(@scale)} "
         end
 
         def negative_failure_reason
           return 'was not a block' unless @block.is_a?(Proc)
-          "performed #{@average} below"
+          "performed #{@average.round(@scale)} below"
         end
       end # Matcher
 
