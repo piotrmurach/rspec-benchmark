@@ -26,17 +26,23 @@ module RSpec
         end
 
         def failure_message
-          msg = "expected block to #{description}, but "
-          msg << "performed only #{@actual} within second"
+          "expected block to #{description}, but #{positive_failure_reason}"
         end
 
         def failure_message_when_negated
-          msg = "expected block not to #{description}, but "
-          msg << "performed #{@actual} within second"
+          "expected block not to #{description}, but #{negative_failure_reason}"
         end
 
         def description
           "perform at least #{@iterations} iterations per second"
+        end
+
+        def positive_failure_reason
+          "performed only #{@actual} within second"
+        end
+
+        def negative_failure_reason
+          "performed #{@actual} within second"
         end
       end
 

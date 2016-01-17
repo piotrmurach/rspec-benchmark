@@ -21,14 +21,14 @@ module RSpec
 
         def matches?(block)
           @block = block
-          return false unless Proc === block
+          return false unless block.is_a?(Proc)
           @bench = ::Benchmark::Performance.new
           @average, @stddev = @bench.run(@samples, &block)
           (@average = @average.round(@scale)) <= @threshold
         end
 
         def does_not_match?(block)
-          !matches?(block) && Proc === block
+          !matches?(block) && block.is_a?(Proc)
         end
 
         def and_sample(samples)
@@ -37,27 +37,25 @@ module RSpec
         end
 
         def failure_message
-          msg = "expected block to #{description}, but "
-          if !(Proc === @block)
-            msg << "was not a block"
-          else
-            msg << "performed above #{@average} "
-          end
-          msg
+          "expected block to #{description}, but #{positive_failure_reason}"
         end
 
         def failure_message_when_negated
-          msg = "expected block to not #{description}, but "
-          if !(Proc === @block)
-            msg << "was not a block"
-          else
-            msg << "performed #{@average} below"
-          end
-          msg
+          "expected block to not #{description}, but #{negative_failure_reason}"
         end
 
         def description
           "perform below #{@threshold} threshold"
+        end
+
+        def positive_failure_reason
+          return 'wan not a block' unless @block.is_a?(Proc)
+          "performed above #{@average} "
+        end
+
+        def negative_failure_reason
+          return 'was not a block' unless @block.is_a?(Proc)
+          "performed #{@average} below"
         end
       end # Matcher
 
