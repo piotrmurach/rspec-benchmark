@@ -57,6 +57,30 @@ module Benchmark
       linear_range(1, @samples)
     end
 
+    # Isolate run in subprocess
+    #
+    # @api private
+    def run_in_subprocess
+      return yield unless Process.respond_to?(:fork)
+
+      reader, writer = IO.pipe
+      pid = Process.fork do
+        GC.start
+        GC.disable if ENV['BENCH_DISABLE_GC']
+        reader.close
+        time = yield
+
+        io.print "%9.6f" % time if io
+        writer.write(Marshal.dump(time))
+        GC.enable if ENV['BENCH_DISABLE_GC']
+        exit!(0) # run without hooks
+      end
+
+      writer.close
+      Process.waitpid(pid)
+      Marshal.load(reader.read)
+    end
+
     # Perform work x times
     #
     # @api public
@@ -68,23 +92,9 @@ module Benchmark
       range.each do
         GC.start
 
-        reader, writer = IO.pipe
-        pid = fork do
-          GC.start
-          GC.disable if ENV['BENCH_DISABLE_GC']
-          reader.close
-          time = ::Benchmark.realtime(&work)
-
-          io.print "%9.6f" % time if io
-          writer.write(Marshal.dump(time))
-          GC.enable if ENV['BENCH_DISABLE_GC']
-          exit!(0) # run without hooks
+        measurements << run_in_subprocess do
+          ::Benchmark.realtime(&work)
         end
-
-        writer.close
-        Process.waitpid(pid)
-        time = Marshal.load(reader.read)
-        measurements << time
       end
       io.puts if io
 
