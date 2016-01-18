@@ -12,6 +12,7 @@ rvm:
   - ruby-head
   - jruby-19mode
   - jruby
+  - jruby-head
   - rbx-2
 env:
   global:
