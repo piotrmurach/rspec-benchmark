@@ -26,8 +26,8 @@ module Benchmark
       return 0 if measurements.empty?
       average = average(measurements)
       Math.sqrt(
-        measurements.inject(0) do |sum, x|
-          sum + (x - average) ** 2
+        measurements.reduce(0) do |sum, x|
+          sum + (x - average)**2
         end.to_f / (measurements.size - 1)
       )
     end
