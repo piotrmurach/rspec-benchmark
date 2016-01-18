@@ -50,12 +50,12 @@ module RSpec
 
         def positive_failure_reason
           return 'wan not a block' unless @block.is_a?(Proc)
-          "performed above #{@average.round(@scale)} "
+          "performed above #{@average} "
         end
 
         def negative_failure_reason
           return 'was not a block' unless @block.is_a?(Proc)
-          "performed #{@average.round(@scale)} below"
+          "performed #{@average} below"
         end
       end # Matcher
 
