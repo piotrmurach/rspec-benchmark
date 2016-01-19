@@ -24,7 +24,7 @@ module RSpec
           return false unless block.is_a?(Proc)
           @bench = ::Benchmark::Performance.new
           @average, @stddev = @bench.run(@samples, &block)
-          @average <= @threshold
+          (@average - 3 * @stddev) <= @threshold
         end
 
         def does_not_match?(block)
@@ -33,6 +33,10 @@ module RSpec
 
         def and_sample(samples)
           @samples = samples
+          self
+        end
+
+        def seconds
           self
         end
 
@@ -53,7 +57,7 @@ module RSpec
         end
 
         def positive_failure_reason
-          return 'wan not a block' unless @block.is_a?(Proc)
+          return 'was not a block' unless @block.is_a?(Proc)
           "performed above #{actual} "
         end
 

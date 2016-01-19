@@ -6,7 +6,7 @@ RSpec.describe 'RSpec::Benchmark::TimingMatcher', '#perform_below' do
     it "passes if the block performs below threshold" do
       expect {
         'x' * 1024 * 10
-      }.to perform_below(0.001).and_sample(10)
+      }.to perform_below(0.0001).and_sample(10)
     end
 
     it "fails if the block performs above threshold" do
