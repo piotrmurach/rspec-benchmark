@@ -18,7 +18,7 @@ module RSpec
         def matches?(block)
           @bench = ::Benchmark::Iteration.new
           @average, @stddev, _ = @bench.run(&block)
-          @average >= @iterations
+          @iterations <= (@average + 3 * @stddev)
         end
 
         def ips

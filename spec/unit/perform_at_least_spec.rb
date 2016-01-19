@@ -5,7 +5,7 @@ RSpec.describe '#perform_at_least' do
   context "expect { ... }.to perform_at_least(...).ips" do
     it "passes if the block perfoms more than 10K ips" do
       expect {
-        'x' * 1024
+        'x' * 1024 * 10
       }.to perform_at_least(10_000).ips
     end
 
