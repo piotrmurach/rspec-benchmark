@@ -17,7 +17,7 @@
 
 Integration and unit tests will ensure that changing code will maintain expected functionality. What is not guaranteed is the code changes impact on library performance. It is easy to refactor your way from fast to slow code.
 
-If you are new to performance testing you may find [Caveats](caveats) section helpful.
+If you are new to performance testing you may find [Caveats](#3-caveats) section helpful.
 
 ## Contents
 
