@@ -24,7 +24,7 @@ module RSpec
           return false unless block.is_a?(Proc)
           @bench = ::Benchmark::Performance.new
           @average, @stddev = @bench.run(@samples, &block)
-          (@average - 3 * @stddev) <= @threshold
+          @average <= @threshold
         end
 
         def does_not_match?(block)
