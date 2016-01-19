@@ -48,14 +48,18 @@ module RSpec
           "perform below #{@threshold} threshold"
         end
 
+        def actual
+          "%.6f (± %.6f) seconds" % [@average, @stddev]
+        end
+
         def positive_failure_reason
           return 'wan not a block' unless @block.is_a?(Proc)
-          "performed above #{@average} "
+          "performed above #{actual} "
         end
 
         def negative_failure_reason
           return 'was not a block' unless @block.is_a?(Proc)
-          "performed #{@average} below"
+          "performed #{actual} below"
         end
       end # Matcher
 
