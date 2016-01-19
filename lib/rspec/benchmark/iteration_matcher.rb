@@ -17,8 +17,8 @@ module RSpec
 
         def matches?(block)
           @bench = ::Benchmark::Iteration.new
-          @actual, _ = @bench.run(&block)
-          @actual >= @iterations
+          @average, @stddev, _ = @bench.run(&block)
+          @average >= @iterations
         end
 
         def ips
@@ -34,15 +34,19 @@ module RSpec
         end
 
         def description
-          "perform at least #{@iterations} iterations per second"
+          "perform at least #{@iterations} i/s"
+        end
+
+        def actual
+          "%d (± %d%%) i/s" % [@average, (@stddev / @average.to_f) * 100]
         end
 
         def positive_failure_reason
-          "performed only #{@actual} within second"
+          "performed only #{actual}"
         end
 
         def negative_failure_reason
-          "performed #{@actual} within second"
+          "performed #{actual}"
         end
       end
 
