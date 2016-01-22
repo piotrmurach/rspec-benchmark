@@ -57,16 +57,16 @@ RSpec.configure do |config|
 end
 ```
 
-Then in your specs you can use `perform_below` matcher:
+Then in your specs you can use `perform_under` matcher:
 
 ```ruby
-expect { ... }.to perform_below(0.01)
+expect { ... }.to perform_under(0.01).sec
 ```
 
 by default the above code will be sampled `30` times but you can change this by using `and_sample` matcher:
 
 ```ruby
-expect { ... }.to perform_below(0.01).and_sample(100)
+expect { ... }.to perform_under(0.01).and_sample(100)
 ```
 
 ### 1.2 IterationMatcher
