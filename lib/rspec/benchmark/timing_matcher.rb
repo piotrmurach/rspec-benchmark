@@ -3,7 +3,7 @@
 module RSpec
   module Benchmark
     module TimingMatcher
-      # Implements the `perform_below` matcher
+      # Implements the `perform_under` matcher
       #
       # @api private
       class Matcher
@@ -36,9 +36,10 @@ module RSpec
           self
         end
 
-        def seconds
+        def secs
           self
         end
+        alias_method :sec, :secs
 
         def failure_message
           "expected block to #{description}, but #{positive_failure_reason}"
@@ -49,11 +50,11 @@ module RSpec
         end
 
         def description
-          "perform below #{@threshold} threshold"
+          "perform under #{@threshold} threshold"
         end
 
         def actual
-          "%.6f (± %.6f) seconds" % [@average, @stddev]
+          "%.6f (± %.6f) secs" % [@average, @stddev]
         end
 
         def positive_failure_reason
@@ -63,11 +64,11 @@ module RSpec
 
         def negative_failure_reason
           return 'was not a block' unless @block.is_a?(Proc)
-          "performed #{actual} below"
+          "performed #{actual} under"
         end
       end # Matcher
 
-      def perform_below(threshold, options = {})
+      def perform_under(threshold, options = {})
         Matcher.new(threshold, options)
       end
     end # TiminingMatcher
