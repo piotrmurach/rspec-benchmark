@@ -14,7 +14,7 @@ RSpec.describe 'RSpec::Benchmark::TimingMatcher', '#perform_under' do
         expect {
           'x' * 1024 * 1024 * 100
         }.to perform_under(0.0001).and_sample(5)
-      }.to raise_error(/expected block to perform under 100 μs, but performed above \d+(\.\d+)? [μmn]s \(± \d+(\.\d+)? [μmn]s\)/)
+      }.to raise_error(/expected block to perform under 100 μs, but performed above \d+(\.\d+)? ([μmn]s|sec) \(± \d+(\.\d+)? ([μmn]s|sec)\)/)
     end
   end
 
@@ -30,7 +30,7 @@ RSpec.describe 'RSpec::Benchmark::TimingMatcher', '#perform_under' do
         expect {
           'x' * 1024 * 1024 * 10
         }.to_not perform_under(1).and_sample(2)
-      }.to raise_error(/expected block to not perform under 1 sec, but performed \d+(\.\d+)? [μmn]s \(± \d+(\.\d+)? [μmn]s\) under/)
+      }.to raise_error(/expected block to not perform under 1 sec, but performed \d+(\.\d+)? ([μmn]s|sec) \(± \d+(\.\d+)? ([μmn]s|sec)\) under/)
     end
   end
 
