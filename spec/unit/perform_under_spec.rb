@@ -33,4 +33,21 @@ RSpec.describe 'RSpec::Benchmark::TimingMatcher', '#perform_under' do
       }.to raise_error(/expected block to not perform under 1 sec, but performed \d+(\.\d+)? [μmn]s \(± \d+(\.\d+)? [μmn]s\) under/)
     end
   end
+
+  context 'threshold conversions' do
+    it "converts 1ms to sec" do
+      matcher = perform_under(1).ms
+      expect(matcher.threshold).to eq(0.001)
+    end
+
+    it "converts 1000us to sec" do
+      matcher = perform_under(1000).us
+      expect(matcher.threshold).to eq(0.001)
+    end
+
+    it "converts ns to sec" do
+      matcher = perform_under(100_000).ns
+      expect(matcher.threshold).to eq(0.0001)
+    end
+  end
 end
