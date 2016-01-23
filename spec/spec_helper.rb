@@ -17,9 +17,6 @@ end
 
 require 'rspec-benchmark'
 
-require 'rspec/benchmark/timing_matcher'
-require 'rspec/benchmark/iteration_matcher'
-
 RSpec.configure do |config|
   config.include(RSpec::Benchmark::TimingMatcher)
   config.include(RSpec::Benchmark::IterationMatcher)
