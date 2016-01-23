@@ -21,6 +21,12 @@ RSpec.describe RSpec::Benchmark do
     expect(sample).to all(be < 0.01)
   end
 
+  it "executes code to warmup ruby vm" do
+    bench = Benchmark::Performance.new
+    sample = bench.run_warmup { 'x' * 1_000_000 }
+    expect(sample).to be < 0.01
+  end
+
   it "measures work performance for 10 samples" do
     bench = Benchmark::Performance.new
     sample = bench.run(10) { 'x' * 1_000_000 }

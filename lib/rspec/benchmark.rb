@@ -68,6 +68,7 @@ module Benchmark
         GC.start
         GC.disable if ENV['BENCH_DISABLE_GC']
         reader.close
+
         time = yield
 
         io.print "%9.6f" % time if io
@@ -81,13 +82,17 @@ module Benchmark
       Marshal.load(reader.read)
     end
 
+    def run_warmup(&work)
+      run_in_subprocess { ::Benchmark.realtime(&work) }
+    end
+
     # Perform work x times
     #
     # @api public
     def run(times = (not_set = true), &work)
       range = not_set ? bench_range : (0..times)
-
       measurements = []
+      run_warmup(&work)
 
       range.each do
         GC.start
