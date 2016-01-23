@@ -9,6 +9,8 @@ module RSpec
       class Matcher
         include RSpec::Benchmark
 
+        attr_reader :threshold
+
         def initialize(threshold, options = {})
           @threshold = threshold
           @samples = options.fetch(:samples) { 30 }
@@ -42,6 +44,21 @@ module RSpec
           self
         end
         alias_method :sec, :secs
+
+        def ms
+          @threshold /= 1e3
+          self
+        end
+
+        def us
+          @threshold /= 1e6
+          self
+        end
+
+        def ns
+          @threshold /= 1e9
+          self
+        end
 
         def failure_message
           "expected block to #{description}, but #{positive_failure_reason}"
