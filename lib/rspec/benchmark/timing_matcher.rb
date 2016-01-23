@@ -7,6 +7,8 @@ module RSpec
       #
       # @api private
       class Matcher
+        include RSpec::Benchmark
+
         def initialize(threshold, options = {})
           @threshold = threshold
           @samples = options.fetch(:samples) { 30 }
@@ -50,11 +52,11 @@ module RSpec
         end
 
         def description
-          "perform under #{@threshold} threshold"
+          "perform under #{format_time(@threshold)}"
         end
 
         def actual
-          "%.6f (± %.6f) secs" % [@average, @stddev]
+          "#{format_time(@average)} (± #{format_time(@stddev)})"
         end
 
         def positive_failure_reason
