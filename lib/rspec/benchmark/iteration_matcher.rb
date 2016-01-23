@@ -49,10 +49,6 @@ module RSpec
           "performed #{actual}"
         end
       end
-
-      def perform_at_least(iterations, options = {})
-        Matcher.new(iterations, options)
-      end
     end # IterationMatcher
   end # Benchmark
 end # RSpec

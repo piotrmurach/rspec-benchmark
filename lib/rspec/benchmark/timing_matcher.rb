@@ -86,10 +86,6 @@ module RSpec
           "performed #{actual} under"
         end
       end # Matcher
-
-      def perform_under(threshold, options = {})
-        Matcher.new(threshold, options)
-      end
     end # TiminingMatcher
   end # Benchmark
 end # RSpec

@@ -2,6 +2,5 @@
 
 require 'rspec/benchmark'
 require 'rspec/benchmark/format_time'
-require 'rspec/benchmark/timing_matcher'
-require 'rspec/benchmark/iteration_matcher'
+require 'rspec/benchmark/matchers'
 require 'rspec/benchmark/version'
