@@ -15,7 +15,7 @@
 
 ## Why?
 
-Integration and unit tests will ensure that changing code will maintain expected functionality. What is not guaranteed is the code changes impact on library performance. It is easy to refactor your way from fast to slow code.
+Integration and unit tests ensure that changing code maintains expected functionality. What is not guaranteed is the code changes impact on library performance. It is easy to refactor your way out of fast to slow code.
 
 If you are new to performance testing you may find [Caveats](#3-caveats) section helpful.
 
@@ -43,55 +43,51 @@ Or install it yourself as:
 
 ## 1. Usage
 
-### 1.1 TimingMatcher
-
-This matcher answers the question of how long does it take to perform the given block of code on average. The measurements are taken executing the block of code in a child process for accurent cpu times.
-
-To use the matcher, in your `spec_helper` do
+In `spec_helper` do:
 
 ```ruby
-require 'rspec/benchmark/timinig_matcher'
+require 'rspec-benchmark'
 
 RSpec.configure do |config|
-  config.include(RSpec::Benchmark::TimingMatcher)
+  config.include(RSpec::Benchmark::Matchers)
 end
 ```
 
-Then in your specs you can use `perform_under` matcher:
+This will add the `perform_under` and `perform_at_least` matchers to express expected performance benchmark from code executed inside the expectation.
+
+### 1.1 Execution time
+
+The `perform_under` matcher answers the question of how long does it take to perform a given block of code on average. The measurements are taken executing the block of code in a child process for accurent cpu times.
 
 ```ruby
 expect { ... }.to perform_under(0.01).sec
 ```
 
-by default the above code will be sampled `30` times but you can change this by using `and_sample` matcher:
+All measurements are assumed to be expressed as seconds. However, you can also provide time in `ms`, `us` and `ns`. The equivalent example in `ms` would be:
 
 ```ruby
-expect { ... }.to perform_under(0.01).and_sample(100)
+expect { ... }.to perform_under(10).ms
 ```
 
-### 1.2 IterationMatcher
-
-The matcher allows you to establish performance benchmark of how many iterations per second a given block of code can be performed.
-
-In your `spec_helper` do
+by default the above code will be sampled `30` times but you can change this by using `and_sample` like so:
 
 ```ruby
-require 'rspec/benchmark/iteration_matcher'
-
-RSpec.configure do |config|
-  config.include(RSpec::Benchmark::IterationMatcher)
-end
+expect { ... }.to perform_under(0.01).and_sample(10)
 ```
 
-Then in your specs you can use `perform_at_least` matcher, for example, for a given block of code we expect at least 10K iterations per second:
+### 1.2 Iterations
+
+The `perform_at_least` matcher allows you to establish performance benchmark of how many iterations per second a given block of code should perform. For example, to expect a given code to perform at least 10K iterations per second do:
 
 ```ruby
 expect { ... }.to perform_at_least(10000).ips
 ```
 
+The `ips` part is optional but its usage clarifies the intent.
+
 ## 2 Filtering
 
-Usually performance tests are best left for CI or occasional runs that do not affect TDD/BDD cycle. To achieve isolation you can use RSpec filters. In your `spec_helper` do
+Usually performance tests are best left for CI or occasional runs that do not affect TDD/BDD cycle. To achieve isolation you can use RSpec filters. For instance, in `spec_helper`:
 
 ```
 config.filter_run_excluding performance: true
@@ -105,7 +101,7 @@ RSpec.describe ..., performance: true do
 end
 ```
 
-Another option is to simply isolate the performance specs in separate directory.
+Another option is to simply isolate the performance specs in separate directory suc as `spec/performance/...` and add custom rake task.
 
 ## 3 Caveats
 
