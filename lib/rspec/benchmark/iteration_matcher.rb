@@ -16,7 +16,7 @@ module RSpec
         end
 
         def matches?(block)
-          @bench = ::Benchmark::Iteration.new
+          @bench = ::Benchmark::Perf::Iteration.new
           @average, @stddev, _ = @bench.run(&block)
           @iterations <= (@average + 3 * @stddev)
         end
