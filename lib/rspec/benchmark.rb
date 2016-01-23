@@ -44,10 +44,10 @@ module Benchmark
     # Assert work is performed within expected iterations per second
     #
     # @api public
-    def assert_perform_ips(expected, options = {}, &work)
+    def assert_perform_ips(iterations, options = {}, &work)
       bench = ::Benchmark::Perf::Iteration.new(options)
-      actual, _ = bench.run(&work)
-      actual >= expected
+      mean, stddev, _ = bench.run(&work)
+      iterations <= (mean + 3 * stddev)
     end
 
     # Measure length of time the work could take on average
