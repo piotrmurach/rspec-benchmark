@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Piotr Murach"]
   spec.email         = [""]
   spec.summary       = %q{Performance testing matchers for RSpec}
-  spec.description   = %q{Performance testing matchers for RSpec}
+  spec.description   = %q{Performance testing matchers for RSpec that provide simple way to specify speed benchmark expectations}
   spec.homepage      = ""
   spec.license       = "MIT"
 
