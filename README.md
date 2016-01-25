@@ -45,17 +45,25 @@ Or install it yourself as:
 
 ## 1. Usage
 
-In `spec_helper` do:
+For matchers to be available globally, in `spec_helper.rb` do:
 
 ```ruby
 require 'rspec-benchmark'
 
 RSpec.configure do |config|
-  config.include(RSpec::Benchmark::Matchers)
+  config.include RSpec::Benchmark::Matchers
 end
 ```
 
 This will add the `perform_under` and `perform_at_least` matchers to express expected performance benchmark from code executed inside the expectation.
+
+Alternatively, you can add matchers for particular example:
+
+```ruby
+RSpec.describe "Performance testing" do
+  include RSpec::Benchmark::Matchers
+end
+```
 
 ### 1.1 Execution time
 
