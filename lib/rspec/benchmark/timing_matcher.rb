@@ -19,10 +19,18 @@ module RSpec
           @confidence_interval = nil
         end
 
+        # Indicates this matcher matches against a block
+        #
+        # @return [True]
+        #
+        # @api private
         def supports_block_expectations?
           true
         end
 
+        # @return [Boolean]
+        #
+        # @api private
         def matches?(block)
           @block = block
           return false unless block.is_a?(Proc)
@@ -45,16 +53,22 @@ module RSpec
         end
         alias_method :sec, :secs
 
+        # Tell this matcher to convert threshold to ms
+        # @api public
         def ms
           @threshold /= 1e3
           self
         end
 
+        # Tell this matcher to convert threshold to us
+        # @api public
         def us
           @threshold /= 1e6
           self
         end
 
+        # Tell this matcher to convert threshold to ns
+        # @api public
         def ns
           @threshold /= 1e9
           self

@@ -11,10 +11,18 @@ module RSpec
           @iterations = iterations
         end
 
+        # Indicates this matcher matches against a block
+        #
+        # @return [True]
+        #
+        # @api private
         def supports_block_expectations?
           true
         end
 
+        # @return [Boolean]
+        #
+        # @api private
         def matches?(block)
           @bench = ::Benchmark::Perf::Iteration.new
           @average, @stddev, _ = @bench.run(&block)
