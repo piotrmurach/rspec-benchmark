@@ -1,19 +1,19 @@
 # RSpec::Benchmark
 [![Gem Version](https://badge.fury.io/rb/rspec-benchmark.svg)][gem]
-[![Build Status](https://secure.travis-ci.org/peter-murach/rspec-benchmark.svg?branch=master)][travis]
-[![Code Climate](https://codeclimate.com/github/peter-murach/rspec-benchmark/badges/gpa.svg)][codeclimate]
-[![Coverage Status](https://coveralls.io/repos/github/peter-murach/rspec-benchmark/badge.svg?branch=master)][coverage]
-[![Inline docs](http://inch-ci.org/github/peter-murach/rspec-benchmark.svg?branch=master)][inchpages]
+[![Build Status](https://secure.travis-ci.org/piotrmurach/rspec-benchmark.svg?branch=master)][travis]
+[![Code Climate](https://codeclimate.com/github/piotrmurach/rspec-benchmark/badges/gpa.svg)][codeclimate]
+[![Coverage Status](https://coveralls.io/repos/github/piotrmurach/rspec-benchmark/badge.svg?branch=master)][coverage]
+[![Inline docs](http://inch-ci.org/github/piotrmurach/rspec-benchmark.svg?branch=master)][inchpages]
 
 [gem]: http://badge.fury.io/rb/rspec-benchmark
-[travis]: http://travis-ci.org/peter-murach/rspec-benchmark
-[codeclimate]: https://codeclimate.com/github/peter-murach/rspec-benchmark
-[coverage]: https://coveralls.io/github/peter-murach/rspec-benchmark?branch=master
-[inchpages]: http://inch-ci.org/github/peter-murach/rspec-benchmark
+[travis]: http://travis-ci.org/piotrmurach/rspec-benchmark
+[codeclimate]: https://codeclimate.com/github/piotrmurach/rspec-benchmark
+[coverage]: https://coveralls.io/github/piotrmurach/rspec-benchmark?branch=master
+[inchpages]: http://inch-ci.org/github/piotrmurach/rspec-benchmark
 
 > Performance testing matchers for RSpec
 
-**RSpec::Benchmark** uses [benchmark-perf](https://github.com/peter-murach/benchmark-perf) for measurements.
+**RSpec::Benchmark** uses [benchmark-perf](https://github.com/piotrmurach/benchmark-perf) for measurements.
 
 ## Why?
 
@@ -126,7 +126,7 @@ If you have any other observations please share them!
 
 ## Contributing
 
-1. Fork it ( https://github.com/peter-murach/rspec-benchmark/fork )
+1. Fork it ( https://github.com/piotrmurach/rspec-benchmark/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
