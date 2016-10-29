@@ -24,6 +24,8 @@ If you are new to performance testing you may find [Caveats](#3-caveats) section
 ## Contents
 
 * [1. Usage](#1-usage)
+  * [1.1 Execution Time](#11-execution-time)
+  * [1.2 Iterations ](#12-iterations)
 * [2. Filtering](#2-filtering)
 * [3. Caveats](#3-caveats)
 
