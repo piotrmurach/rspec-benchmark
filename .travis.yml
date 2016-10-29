@@ -4,21 +4,20 @@ sudo: false
 cache: bundler
 script: "bundle exec rake ci"
 rvm:
-  - 1.9.3
-  - 2.0
-  - 2.1
-  - 2.2
-  - 2.3.0
+  - 2.0.0
+  - 2.1.10
+  - 2.2.5
+  - 2.3.1
   - ruby-head
-  - jruby-19mode
-  - jruby
+  - jruby-9.1.1.0
   - jruby-head
-  - rbx-2
+  - rbx-3.60
 env:
   global:
     - JRUBY_OPTS="-Xcli.debug=true --debug"
 matrix:
   allow_failures:
+    - rvm: rbx-3.60
     - rvm: ruby-head
     - rvm: jruby-head
   fast_finish: true
