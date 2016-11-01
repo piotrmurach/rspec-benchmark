@@ -1,6 +1,11 @@
 # encoding: utf-8
 
 RSpec.describe 'RSpec::Benchmark::TimingMatcher', '#perform_under' do
+  it "propagates error inside expectation" do
+    expect { 
+      expect { raise 'boom' }.to perform_under(0.01).sec
+    }.to raise_error(StandardError, /boom/)
+  end
 
   context "expect { ... }.to perfom_under(...).and_sample" do
     it "passes if the block performs under threshold" do
