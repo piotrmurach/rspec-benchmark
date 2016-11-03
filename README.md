@@ -2,13 +2,13 @@
 [![Gem Version](https://badge.fury.io/rb/rspec-benchmark.svg)][gem]
 [![Build Status](https://secure.travis-ci.org/piotrmurach/rspec-benchmark.svg?branch=master)][travis]
 [![Code Climate](https://codeclimate.com/github/piotrmurach/rspec-benchmark/badges/gpa.svg)][codeclimate]
-[![Coverage Status](https://coveralls.io/repos/github/piotrmurach/rspec-benchmark/badge.svg?branch=master)][coverage]
+[![Coverage Status](https://coveralls.io/repos/github/piotrmurach/rspec-benchmark/badge.svg)][coverage]
 [![Inline docs](http://inch-ci.org/github/piotrmurach/rspec-benchmark.svg?branch=master)][inchpages]
 
 [gem]: http://badge.fury.io/rb/rspec-benchmark
 [travis]: http://travis-ci.org/piotrmurach/rspec-benchmark
 [codeclimate]: https://codeclimate.com/github/piotrmurach/rspec-benchmark
-[coverage]: https://coveralls.io/github/piotrmurach/rspec-benchmark?branch=master
+[coverage]: https://coveralls.io/github/piotrmurach/rspec-benchmark
 [inchpages]: http://inch-ci.org/github/piotrmurach/rspec-benchmark
 
 > Performance testing matchers for RSpec
