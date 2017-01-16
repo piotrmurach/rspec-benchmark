@@ -2,6 +2,7 @@
 
 require 'rspec/benchmark/timing_matcher'
 require 'rspec/benchmark/iteration_matcher'
+require 'rspec/benchmark/compare_matcher'
 
 module RSpec
   module Benchmark
@@ -48,6 +49,14 @@ module RSpec
       def perform_under(threshold, options = {})
         TimingMatcher::Matcher.new(threshold, options)
       end
+
+      def perform_faster_than(options = {}, &sample)
+        CompareMatcher::FasterThanMatcher.new(sample, options)
+      end
+
+      # def slower_than(sample, options = {})
+      #   CompareMatcher::Matcher.new(block, comparison_type: :slower, options)
+      # end
     end # Matchers
   end # Benchmark
 end # RSpec
