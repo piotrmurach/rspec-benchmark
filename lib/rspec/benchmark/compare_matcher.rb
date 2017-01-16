@@ -49,15 +49,23 @@ module RSpec
         end
 
         def actual
-          iterations/sample_iterations
+          iterations/sample_iterations.to_f
         end
 
         def positive_failure_reason
-          "performed slower in #{actual} times"
+          if actual < 1
+            "performed slower in #{format('%.2f', (actual**-1))} times"
+          else
+            "performed faster in #{format('%.2f', actual)} times"
+          end
         end
 
         def negative_failure_reason
-          "performed faster in #{actual} times"
+          if actual < 1
+            "performed slower in #{format('%.2f', (actual**-1))} times"
+          else
+            "performed faster in #{format('%.2f', actual)} times"
+          end
         end
 
         private
