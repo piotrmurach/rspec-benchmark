@@ -97,6 +97,23 @@ expect { ... }.to perform_at_least(10000).ips
 
 The `ips` part is optional but its usage clarifies the intent.
 
+### 1.3 Performance comparison
+
+The `perform_faster_than` and `perform_slower_than` matcher allows you to test performance of your code compared to other. For example:
+
+```ruby
+expect { ... }.to perform_faster_than { ... }
+expect { ... }.to perform_slower_than { ... }
+```
+
+And if you want to compare how much faster or slower your code compared to other do:
+```ruby
+expect { ... }.to perform_faster_than { ... }.in(5).times
+expect { ... }.to perform_slower_than { ... }.in(5).times
+```
+
+The `times` part is also optional.
+
 ## 2 Filtering
 
 Usually performance tests are best left for CI or occasional runs that do not affect TDD/BDD cycle. To achieve isolation you can use RSpec filters. For instance, in `spec_helper`:
