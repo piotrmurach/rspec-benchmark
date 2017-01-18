@@ -26,6 +26,7 @@ If you are new to performance testing you may find [Caveats](#3-caveats) section
 * [1. Usage](#1-usage)
   * [1.1 Execution Time](#11-execution-time)
   * [1.2 Iterations ](#12-iterations)
+  * [1.3 Comparison ](#13-comparison)
 * [2. Filtering](#2-filtering)
 * [3. Caveats](#3-caveats)
 
@@ -97,7 +98,7 @@ expect { ... }.to perform_at_least(10000).ips
 
 The `ips` part is optional but its usage clarifies the intent.
 
-### 1.3 Performance comparison
+### 1.3 Comparison
 
 The `perform_faster_than` and `perform_slower_than` matcher allows you to test performance of your code compared to other. For example:
 
@@ -153,4 +154,4 @@ If you have any other observations please share them!
 
 ## Copyright
 
-Copyright (c) 2016 Piotr Murach. See LICENSE for further details.
+Copyright (c) 2016-2017 Piotr Murach. See LICENSE for further details.
