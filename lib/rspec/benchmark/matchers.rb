@@ -2,7 +2,7 @@
 
 require 'rspec/benchmark/timing_matcher'
 require 'rspec/benchmark/iteration_matcher'
-require 'rspec/benchmark/compare_matcher'
+require 'rspec/benchmark/comparison_matcher'
 
 module RSpec
   module Benchmark
@@ -50,13 +50,31 @@ module RSpec
         TimingMatcher::Matcher.new(threshold, options)
       end
 
+      # Passes if code block performs faster than sample block
+      #
+      # @param [Proc] sample
+      #
+      # @example
+      #   expect { ... }.to peform_faster_than { ... }
+      #   expect { ... }.to peform_faster_than { ... }.in(5).times
+      #
+      # @api public
       def perform_faster_than(options = {}, &sample)
-        CompareMatcher::FasterThanMatcher.new(sample, options)
+        ComparisonMatcher::Matcher.new(sample, :faster, options)
       end
 
-      # def slower_than(sample, options = {})
-      #   CompareMatcher::Matcher.new(block, comparison_type: :slower, options)
-      # end
+      # Passes if code block performs slower than sample block
+      #
+      # @param [Proc] sample
+      #
+      # @example
+      #   expect { ... }.to peform_slower_than { ... }
+      #   expect { ... }.to peform_slower_than { ... }.in(5).times
+      #
+      # @api public
+      def perform_slower_than(options = {}, &sample)
+        ComparisonMatcher::Matcher.new(sample, :slower, options)
+      end
     end # Matchers
   end # Benchmark
 end # RSpec
