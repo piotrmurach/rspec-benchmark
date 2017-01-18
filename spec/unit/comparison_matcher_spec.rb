@@ -1,11 +1,18 @@
 # encoding: utf-8
 
-RSpec.describe 'RSpec::Benchmark::ComparisonMatcher' do
+RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
+
+  it "validates comparison type" do
+    expect {
+      described_class.new(-> { 1 + 2 }, :unknown)
+    }.to raise_error(ArgumentError, /comparison_type must be :faster or :slower, not `:unknown`/)
+  end
+
   describe '#perform_faster_than' do
     context "expect { ... }.to perform_faster_than(...)" do
       it "passes if the block performs faster than sample" do
         expect {
-          1 << 1
+           1 << 1
         }.to perform_faster_than { 'x' * 10 * 1024 }
       end
 

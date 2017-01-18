@@ -6,11 +6,15 @@ module RSpec
       # Implements the `perform_faster_than` and `perform_slower_than` matchers
       #
       # @api private
-      # @author WildDima
       class Matcher
-        attr_reader :sample, :amount, :iterations, :sample_iterations, :comparison_type
+        attr_reader :sample,
+                    :amount,
+                    :iterations,
+                    :sample_iterations,
+                    :comparison_type
 
         def initialize(sample, comparison_type, options = {})
+          check_comparison(comparison_type)
           @sample = sample
           @comparison_type = comparison_type
         end
@@ -33,7 +37,11 @@ module RSpec
           @sample_iterations = ips_for(sample)
           @iterations = ips_for(block)
 
-          compare?
+          if comparison_type == :faster
+            iterations / amount > sample_iterations
+          else
+            iterations / amount < sample_iterations
+          end
         end
 
         def in(amount)
@@ -73,20 +81,14 @@ module RSpec
 
         private
 
-        def compare?
-          case comparison_type
-          when :faster
-            iterations/amount > sample_iterations
-          when :slower
-            iterations/amount < sample_iterations
-          else
-            raise ArgumentError,
-                  "comparison_type must be ':faster' or ':slower', not :'#{comparison_type}'"
-          end
+        def check_comparison(type)
+          [:slower, :faster].include?(type) ||
+            (raise ArgumentError, "comparison_type must be " \
+                  ":faster or :slower, not `:#{type}`")
         end
 
         def actual
-          iterations/sample_iterations.to_f
+          iterations / sample_iterations.to_f
         end
 
         def ips_for(block)
@@ -95,6 +97,6 @@ module RSpec
           average + 3 * stddev
         end
       end
-    end
-  end
-end
+    end # ComparisonMatcher
+  end # Benchmark
+end # RSpec
