@@ -53,10 +53,6 @@ module RSpec
           "expected block not to #{description}, but #{failure_reason}"
         end
 
-        def actual
-          iterations/sample_iterations.to_f
-        end
-
         def description
           if amount == 1
             "perform #{comparison_type} than passed block"
@@ -87,6 +83,10 @@ module RSpec
             raise ArgumentError,
                   "comparison_type must be ':faster' or ':slower', not :'#{comparison_type}'"
           end
+        end
+
+        def actual
+          iterations/sample_iterations.to_f
         end
 
         def ips_for(block)
