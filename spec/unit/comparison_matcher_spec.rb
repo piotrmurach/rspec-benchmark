@@ -92,7 +92,7 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
         expect {
           expect {
             1 << 1
-          }.to perform_faster_than { 'x' * 10 * 1024 }.at_most(10).times
+          }.to perform_faster_than { 'x' * 10 * 1024 }.at_most(2).times
         }.to raise_error(/expected block to perform faster than passed block at_most in \d+ times, but performed faster in \d+.\d+ times/)
       end
     end
@@ -182,7 +182,7 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
         expect {
           expect {
             'x' * 10 * 1024
-          }.to perform_slower_than { 1 << 1 }.at_most(10).times
+          }.to perform_slower_than { 1 << 1 }.at_most(2).times
         }.to raise_error(/expected block to perform slower than passed block at_most in \d+ times, but performed slower in \d+.\d+ times/)
       end
     end
