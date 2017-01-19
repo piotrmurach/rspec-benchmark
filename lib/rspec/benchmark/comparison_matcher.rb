@@ -39,8 +39,6 @@ module RSpec
           @iterations = ips_for(block)
 
           case threshold_type
-          when :at_least
-            default_comparison
           when :at_most
             at_most_comparison
           when :exactly
@@ -133,16 +131,16 @@ module RSpec
         #   @amount = 40
         #   perform_faster_than { ... }.exactly(@amount).times # => true
         #
-        #   @actual = 39.9
+        #   @actual = 45
         #   @amount = 40
         #   perform_faster_than { ... }.exactly(@amount).times # => true
         #
-        #   @actual = 40.2
+        #   @actual = 55
         #   @amount = 40
         #   perform_faster_than { ... }.exactly(@amount).times # => false
         # @api private
         def exactly_comparison
-          (amount - 0.1 .. amount + 0.1).include? actual
+          (amount - 0.25 .. amount + 0.25).include? actual
         end
 
         # @return [Boolean]

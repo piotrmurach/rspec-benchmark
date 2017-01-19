@@ -85,7 +85,7 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
       it "passes if the block performs faster than sample" do
         expect {
           1 << 1
-        }.to perform_faster_than { 'x' * 10 * 1024 }.at_most(100).times
+        }.to perform_faster_than { 'x' * 10 * 1024 }.at_most(125).times
       end
 
       it "fails if the block performs faster than sample more than in 20 times" do
@@ -175,7 +175,7 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
       it "passes if the block performs faster than sample" do
         expect {
           'x' * 10 * 1024
-        }.to perform_slower_than { 1 << 1 }.at_most(100).times
+        }.to perform_slower_than { 1 << 1 }.at_most(125).times
       end
 
       it "fails if the block performs slower than sample more than in 20 times" do
