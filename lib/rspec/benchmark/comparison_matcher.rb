@@ -140,7 +140,7 @@ module RSpec
         #   perform_faster_than { ... }.exactly(@amount).times # => false
         # @api private
         def exactly_comparison
-          (amount - 0.3 .. amount + 0.3).include? actual
+          (amount - 0.33 .. amount + 0.33).include? actual
         end
 
         # @return [Boolean]
