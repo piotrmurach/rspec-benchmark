@@ -32,7 +32,7 @@ module RSpec
       #   expect { ... }.to perform_at_least(10000).ips
       #
       # @api public
-      def perform_at_least(iterations, options = {})
+      def perform_at_least(iterations, **options)
         IterationMatcher::Matcher.new(iterations, options)
       end
 
@@ -46,7 +46,7 @@ module RSpec
       #   expect { ... }.to peform_under(10).ms
       #
       # @api public
-      def perform_under(threshold, options = {})
+      def perform_under(threshold, **options)
         TimingMatcher::Matcher.new(threshold, options)
       end
 
@@ -59,7 +59,7 @@ module RSpec
       #   expect { ... }.to peform_faster_than { ... }.at_least(5).times
       #
       # @api public
-      def perform_faster_than(options = {}, &sample)
+      def perform_faster_than(**options, &sample)
         ComparisonMatcher::Matcher.new(sample, :faster, options)
       end
 
@@ -72,7 +72,7 @@ module RSpec
       #   expect { ... }.to peform_slower_than { ... }.at_most(5).times
       #
       # @api public
-      def perform_slower_than(options = {}, &sample)
+      def perform_slower_than(**options, &sample)
         ComparisonMatcher::Matcher.new(sample, :slower, options)
       end
     end # Matchers

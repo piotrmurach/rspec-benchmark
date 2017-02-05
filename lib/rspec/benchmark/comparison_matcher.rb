@@ -7,7 +7,7 @@ module RSpec
       #
       # @api private
       class Matcher
-        def initialize(expected, comparison_type, options = {})
+        def initialize(expected, comparison_type, **options)
           check_comparison(comparison_type)
           @expected = expected
           @comparison_type = comparison_type
