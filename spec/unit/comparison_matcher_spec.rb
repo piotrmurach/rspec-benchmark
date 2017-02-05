@@ -34,10 +34,6 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
       it "passes if the block performs specified number of times" do
         expect { 1 << 1 }.to perform_faster_than { 1 << 1 }.once
       end
-
-      it "passes if the block performs specified exactly twice" do
-        expect { 1 << 1 }.to perform_faster_than { (1 << 1) ** 60 }.twice
-      end
     end
 
     context "with at_least count" do
