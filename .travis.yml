@@ -6,18 +6,19 @@ script: "bundle exec rake ci"
 rvm:
   - 2.0.0
   - 2.1.10
-  - 2.2.5
-  - 2.3.1
+  - 2.2.6
+  - 2.3.3
+  - 2.4.0
   - ruby-head
   - jruby-9000
   - jruby-head
-  - rbx
+  - rbx-3
 env:
   global:
     - JRUBY_OPTS="-Xcli.debug=true --debug"
 matrix:
   allow_failures:
-    - rvm: rbx
+    - rvm: rbx-3
     - rvm: ruby-head
     - rvm: jruby-head
   fast_finish: true
