@@ -7,8 +7,11 @@ module RSpec
       #
       # @api private
       class Matcher
-        def initialize(iterations, options = {})
+        def initialize(iterations, **options)
           @iterations = iterations
+          time   = options.fetch(:time) { 0.2 }
+          warmup = options.fetch(:warmup) { 0.1 }
+          @bench = ::Benchmark::Perf::Iteration.new(time: time, warmup: warmup)
         end
 
         # Indicates this matcher matches against a block
@@ -24,7 +27,6 @@ module RSpec
         #
         # @api private
         def matches?(block)
-          @bench = ::Benchmark::Perf::Iteration.new
           @average, @stddev, _ = @bench.run(&block)
           @iterations <= (@average + 3 * @stddev)
         end

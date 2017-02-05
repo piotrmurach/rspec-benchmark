@@ -2,6 +2,17 @@
 
 RSpec.describe '#perform_at_least' do
 
+  it "allows to configure matcher timings" do
+    bench = double(run: [10_000, 100])
+    allow(::Benchmark::Perf::Iteration).to receive(:new).and_return(bench)
+    expect {
+      'x' * 1024 * 10
+    }.to perform_at_least(10_000, warmup: 0.2, time: 0.3)
+
+    expect(::Benchmark::Perf::Iteration).to have_received(:new).
+      with(time: 0.3, warmup: 0.2)
+  end
+
   context "expect { ... }.to perform_at_least(...).ips" do
     it "passes if the block perfoms more than 10K ips" do
       expect {
