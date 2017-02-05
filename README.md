@@ -100,14 +100,15 @@ The `ips` part is optional but its usage clarifies the intent.
 
 ### 1.3 Comparison
 
-The `perform_faster_than` and `perform_slower_than` matcher allows you to test performance of your code compared to other. For example:
+The `perform_faster_than` and `perform_slower_than` matchers allow you to test performance of your code compared with other. For example:
 
 ```ruby
 expect { ... }.to perform_faster_than { ... }
 expect { ... }.to perform_slower_than { ... }
 ```
 
-And if you want to compare how much faster or slower your code compared to other do:
+And if you want to compare how much faster or slower your code is do:
+
 ```ruby
 expect { ... }.to perform_faster_than { ... }.at_least(5).times
 expect { ... }.to perform_faster_than { ... }.at_most(5).times
