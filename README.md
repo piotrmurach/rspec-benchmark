@@ -110,10 +110,14 @@ expect { ... }.to perform_slower_than { ... }
 And if you want to compare how much faster or slower your code is do:
 
 ```ruby
+expect { ... }.to perform_faster_than { ... }.once
+expect { ... }.to perform_faster_than { ... }.twice
+expect { ... }.to perform_faster_than { ... }.exactly(5).times
 expect { ... }.to perform_faster_than { ... }.at_least(5).times
 expect { ... }.to perform_faster_than { ... }.at_most(5).times
-expect { ... }.to perform_faster_than { ... }.exactly(5).times
 
+expect { ... }.to perform_slower_than { ... }.once
+expect { ... }.to perform_slower_than { ... }.twice
 expect { ... }.to perform_slower_than { ... }.at_least(5).times
 expect { ... }.to perform_slower_than { ... }.at_most(5).times
 expect { ... }.to perform_slower_than { ... }.exactly(5).times
