@@ -13,7 +13,9 @@ module RSpec
           @comparison_type = comparison_type
           @count = 1
           @count_type = :at_least
-          @bench = ::Benchmark::Perf::Iteration.new(time: 0.2, warmup: 0.1)
+          time   = options.fetch(:time) { 0.2 }
+          warmup = options.fetch(:warmup) { 0.1 }
+          @bench = ::Benchmark::Perf::Iteration.new(time: time, warmup: warmup)
         end
 
         # Indicates this matcher matches against a block
@@ -37,7 +39,7 @@ module RSpec
           return false unless (Proc === @actual)
 
           @expected_ips, @expected_stdev, _ = @bench.run(&@expected)
-          @actual_ips, @actual_stdev, _ = @bench.run(&block)
+          @actual_ips, @actual_stdev, _ = @bench.run(&@actual)
 
           case @count_type
           when :at_most

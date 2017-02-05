@@ -15,6 +15,16 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
     "expected given block to perform faster than comparison block, but was not a block")
   end
 
+  it "allows to configure matcher timings" do
+    bench = double(run: 100)
+    allow(::Benchmark::Perf::Iteration).to receive(:new).and_return(bench)
+    sample = -> { 'x' * 10 * 1024 }
+    expect { 1 << 1 }.to perform_faster_than(warmup: 0.2, time: 0.3, &sample).exactly(1).times
+
+    expect(::Benchmark::Perf::Iteration).to have_received(:new).
+      with(time: 0.3, warmup: 0.2)
+  end
+
   describe "expect { ... }.to perform_faster_than(...)" do
     it "passes if the block performs faster than sample" do
       expect { 1 << 1 }.to perform_faster_than { 'x' * 10 * 1024 }
