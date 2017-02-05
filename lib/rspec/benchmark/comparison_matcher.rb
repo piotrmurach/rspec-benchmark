@@ -157,22 +157,23 @@ module RSpec
           end
         end
 
-        # @return [Boolean]
+        # Check if expected ips is faster/slower than actual ips
+        # exactly number of counts.
+        #
         # @example
         #   @actual = 40.1
         #   @count = 40
         #   perform_faster_than { ... }.exact(@count).times # => true
         #
-        #   @actual = 45
-        #   @count = 40
+        #   @actual = 40.1
+        #   @count = 41
         #   perform_faster_than { ... }.exact(@count).times # => true
         #
-        #   @actual = 55
-        #   @count = 40
-        #   perform_faster_than { ... }.exact(@count).times # => false
+        # @return [Boolean]
+        #
         # @api private
         def exact_comparison
-          (@count - 0.33 .. @count + 0.33).include? actual
+          @count == actual.round
         end
 
         # @return [Boolean]
