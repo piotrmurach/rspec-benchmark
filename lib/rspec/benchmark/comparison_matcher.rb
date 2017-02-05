@@ -33,6 +33,9 @@ module RSpec
         #
         # @api private
         def matches?(block)
+          @actual = block
+          return false unless (Proc === @actual)
+
           @expected_ips, @expected_stdev, _ = @bench.run(&@expected)
           @actual_ips, @actual_stdev, _ = @bench.run(&block)
 
@@ -98,26 +101,28 @@ module RSpec
 
         # @api private
         def failure_message
-          "expected block to #{description}, but #{failure_reason}"
+          "expected given block to #{description}, but #{failure_reason}"
         end
 
         # @api private
         def failure_message_when_negated
-          "expected block not to #{description}, but #{failure_reason}"
+          "expected given block not to #{description}, but #{failure_reason}"
         end
 
         # @api private
         def description
           if @count == 1
-            "perform #{@comparison_type} than passed block"
+            "perform #{@comparison_type} than comparison block"
           else
-            "perform #{@comparison_type} than passed block " \
+            "perform #{@comparison_type} than comparison block " \
             "by #{@count_type} #{@count} times"
           end
         end
 
         # @api private
         def failure_reason
+          return "was not a block" unless (Proc === @actual)
+
           if actual < 1
             "performed slower by #{format('%.2f', (actual**-1))} times"
           elsif actual > 1

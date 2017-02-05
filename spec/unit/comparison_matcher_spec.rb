@@ -8,6 +8,13 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
     }.to raise_error(ArgumentError, /comparison_type must be :faster or :slower, not `:unknown`/)
   end
 
+  it "raises expectation error when not given a block" do
+    expect {
+      expect(1 + 1).to perform_faster_than { 'x' * 10 * 1024 }
+    }.to raise_error(RSpec::Expectations::ExpectationNotMetError,
+    "expected given block to perform faster than comparison block, but was not a block")
+  end
+
   describe "expect { ... }.to perform_faster_than(...)" do
     it "passes if the block performs faster than sample" do
       expect { 1 << 1 }.to perform_faster_than { 'x' * 10 * 1024 }
@@ -15,10 +22,8 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
 
     it "fails if the block performs slower than sample" do
       expect {
-        expect {
-          'x' * 10 * 1024
-        }.to perform_faster_than { 1 << 1 }
-      }.to raise_error(/expected block to perform faster than passed block, but performed slower by \d+.\d+ times/)
+        expect { 'x' * 10 * 1024 }.to perform_faster_than { 1 << 1 }
+      }.to raise_error(/expected given block to perform faster than comparison block, but performed slower by \d+.\d+ times/)
     end
 
     context 'with exact count' do
@@ -28,6 +33,10 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
 
       it "passes if the block performs specified number of times" do
         expect { 1 << 1 }.to perform_faster_than { 1 << 1 }.once
+      end
+
+      it "passes if the block performs specified exactly twice" do
+        expect { 1 << 1 }.to perform_faster_than { 2**30 }.twice
       end
     end
 
@@ -41,7 +50,7 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
           expect {
             'x' * 10 * 1024
           }.to perform_faster_than { 1 << 1 }.at_least(2).times
-        }.to raise_error(/expected block to perform faster than passed block by at_least \d+ times, but performed slower by \d+.\d+ times/)
+        }.to raise_error(/expected given block to perform faster than comparison block by at_least \d+ times, but performed slower by \d+.\d+ times/)
       end
     end
 
@@ -55,7 +64,7 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
           expect {
             1 << 1
           }.to perform_faster_than { 'x' * 10 * 1024 }.at_most(2).times
-        }.to raise_error(/expected block to perform faster than passed block by at_most \d+ times, but performed faster by \d+.\d+ times/)
+        }.to raise_error(/expected given block to perform faster than comparison block by at_most \d+ times, but performed faster by \d+.\d+ times/)
       end
     end
   end
@@ -68,7 +77,7 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
     it "fails if the block performs faster than sample" do
       expect {
         expect { 1 << 1 }.not_to perform_faster_than { 'x' * 10 * 1024 }
-      }.to raise_error(/expected block not to perform faster than passed block, but performed faster by \d+.\d+ times/)
+      }.to raise_error(/expected given block not to perform faster than comparison block, but performed faster by \d+.\d+ times/)
     end
 
     context 'with at_least count' do
@@ -83,7 +92,7 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
           expect {
             1 << 1
           }.not_to perform_faster_than { 'x' * 10 * 1024 }.at_least(2).times
-        }.to raise_error(/expected block not to perform faster than passed block by at_least \d+ times, but performed faster by \d+.\d+ times/)
+        }.to raise_error(/expected given block not to perform faster than comparison block by at_least \d+ times, but performed faster by \d+.\d+ times/)
       end
     end
   end
@@ -96,7 +105,7 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
     it "fails if the block performs slower than sample" do
       expect {
         expect { 'x' * 10 * 1024 }.not_to perform_slower_than { 1 << 1 }
-      }.to raise_error(/expected block not to perform slower than passed block, but performed slower by \d+.\d+ times/)
+      }.to raise_error(/expected given block not to perform slower than comparison block, but performed slower by \d+.\d+ times/)
     end
 
     context "with at_least count" do
@@ -111,7 +120,7 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
           expect {
             'x' * 10 * 1024
           }.not_to perform_slower_than { 1 << 1 }.at_least(5).times
-        }.to raise_error(/expected block not to perform slower than passed block by at_least \d+ times, but performed slower by \d+.\d+ times/)
+        }.to raise_error(/expected given block not to perform slower than comparison block by at_least \d+ times, but performed slower by \d+.\d+ times/)
       end
     end
   end
@@ -123,10 +132,8 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
 
     it "fails if the block performs faster than sample" do
       expect {
-        expect {
-          1 << 1
-        }.to perform_slower_than { 'x' * 10 * 1024 }
-      }.to raise_error(/expected block to perform slower than passed block, but performed faster by \d+.\d+ times/)
+        expect { 1 << 1 }.to perform_slower_than { 'x' * 10 * 1024 }
+      }.to raise_error(/expected given block to perform slower than comparison block, but performed faster by \d+.\d+ times/)
     end
 
     context "with at_least count" do
@@ -141,7 +148,7 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
           expect {
             1 << 1
           }.to perform_slower_than { 'x' * 10 * 1024 }.at_least(2).times
-        }.to raise_error(/expected block to perform slower than passed block by at_least \d+ times, but performed faster by \d+.\d+ times/)
+        }.to raise_error(/expected given block to perform slower than comparison block by at_least \d+ times, but performed faster by \d+.\d+ times/)
       end
     end
 
@@ -163,7 +170,7 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
           expect {
             'x' * 10 * 1024
           }.to perform_slower_than { 1 << 1 }.at_most(2).times
-        }.to raise_error(/expected block to perform slower than passed block by at_most \d+ times, but performed slower by \d+.\d+ times/)
+        }.to raise_error(/expected given block to perform slower than comparison block by at_most \d+ times, but performed slower by \d+.\d+ times/)
       end
     end
   end
