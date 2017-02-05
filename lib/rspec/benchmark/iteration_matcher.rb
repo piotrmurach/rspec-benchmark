@@ -27,7 +27,7 @@ module RSpec
         #
         # @api private
         def matches?(block)
-          @average, @stddev, _ = @bench.run(&block)
+          @average, @stddev, = @bench.run(&block)
           @iterations <= (@average + 3 * @stddev)
         end
 

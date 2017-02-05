@@ -52,7 +52,7 @@ module RSpec
         def secs
           self
         end
-        alias_method :sec, :secs
+        alias sec secs
 
         # Tell this matcher to convert threshold to ms
         # @api public

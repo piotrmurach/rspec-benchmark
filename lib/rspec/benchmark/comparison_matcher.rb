@@ -228,8 +228,8 @@ module RSpec
 
         def check_comparison(type)
           [:slower, :faster].include?(type) ||
-           (raise ArgumentError, "comparison_type must be " \
-                  ":faster or :slower, not `:#{type}`")
+            (raise ArgumentError, 'comparison_type must be ' \
+                   ":faster or :slower, not `:#{type}`")
         end
       end # Matcher
     end # ComparisonMatcher
