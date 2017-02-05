@@ -36,10 +36,12 @@ module RSpec
         # @api private
         def matches?(block)
           @actual = block
-          return false unless (Proc === @actual)
+          return false unless @actual.is_a?(Proc)
 
-          @expected_ips, @expected_stdev, _ = @bench.run(&@expected)
-          @actual_ips, @actual_stdev, _ = @bench.run(&@actual)
+          @expected_ips, @expected_stdev, = @bench.run(&@expected)
+          @actual_ips, @actual_stdev, = @bench.run(&@actual)
+
+          @ratio = @actual_ips / @expected_ips.to_f
 
           case @count_type
           when :at_most
@@ -123,12 +125,12 @@ module RSpec
 
         # @api private
         def failure_reason
-          return "was not a block" unless (Proc === @actual)
+          return "was not a block" unless @actual.is_a?(Proc)
 
-          if actual < 1
-            "performed slower by #{format('%.2f', (actual**-1))} times"
-          elsif actual > 1
-            "performed faster by #{format('%.2f', actual)} times"
+          if @ratio < 1
+            "performed slower by #{format('%.2f', (@ratio**-1))} times"
+          elsif @ratio > 1
+            "performed faster by #{format('%.2f', @ratio)} times"
           else
             "performed by the same time"
           end
@@ -173,9 +175,9 @@ module RSpec
         # @api private
         def at_most_comparison
           if @comparison_type == :faster
-            1 < actual && actual < @count
+            1 < @ratio && @ratio < @count
           else
-            actual < 1 && actual > 1 / @count.to_f
+            @count**-1 < @ratio && @ratio < 1
           end
         end
 
@@ -195,7 +197,7 @@ module RSpec
         #
         # @api private
         def exact_comparison
-          @count == actual.round
+          @count == @ratio.round
         end
 
         # @return [Boolean]
@@ -218,9 +220,9 @@ module RSpec
         # @api private
         def default_comparison
           if @comparison_type == :faster
-            actual / @count > 1
+            @ratio / @count > 1
           else
-            actual / @count < 1 / @count.to_f
+            @ratio / @count < 1 / @count.to_f
           end
         end
 
@@ -229,11 +231,7 @@ module RSpec
            (raise ArgumentError, "comparison_type must be " \
                   ":faster or :slower, not `:#{type}`")
         end
-
-        def actual
-          @actual_ips / @expected_ips.to_f
-        end
-      end
+      end # Matcher
     end # ComparisonMatcher
   end # Benchmark
 end # RSpec
