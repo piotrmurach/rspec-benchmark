@@ -56,7 +56,7 @@ module RSpec
       #
       # @example
       #   expect { ... }.to peform_faster_than { ... }
-      #   expect { ... }.to peform_faster_than { ... }.in(5).times
+      #   expect { ... }.to peform_faster_than { ... }.at_least(5).times
       #
       # @api public
       def perform_faster_than(options = {}, &sample)
@@ -69,7 +69,7 @@ module RSpec
       #
       # @example
       #   expect { ... }.to peform_slower_than { ... }
-      #   expect { ... }.to peform_slower_than { ... }.in(5).times
+      #   expect { ... }.to peform_slower_than { ... }.at_most(5).times
       #
       # @api public
       def perform_slower_than(options = {}, &sample)
