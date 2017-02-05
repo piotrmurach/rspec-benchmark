@@ -58,7 +58,7 @@ RSpec.configure do |config|
 end
 ```
 
-This will add the `perform_under` and `perform_at_least` matchers to express expected performance benchmark from code executed inside the expectation.
+This will add the `perform_under`, `perform_at_least`, `perform_faster_than` and `perform_slower_than` matchers to express expected performance benchmark for code executed inside the expectation.
 
 Alternatively, you can add matchers for particular example:
 
@@ -98,6 +98,14 @@ expect { ... }.to perform_at_least(10000).ips
 
 The `ips` part is optional but its usage clarifies the intent.
 
+The performance timining of this matcher can be tweaked using the `:time` and `:warmup` parameters. These are expressed as seconds. By default `:time` is set to `0.2` and `:warmup` to `0.1` respectively. To change parameters do:
+
+```ruby
+expect { ... }.to perform_faster_than(time: 0.4, warmup: 0.2) { ... }
+```
+
+The higher values for `:time` and `:warmup` the more accurate average readings and hence more stable tests at the cost of longer test suite overall time.
+
 ### 1.3 Comparison
 
 The `perform_faster_than` and `perform_slower_than` matchers allow you to test performance of your code compared with other. For example:
@@ -124,6 +132,14 @@ expect { ... }.to perform_slower_than { ... }.exactly(5).times
 ```
 
 The `times` part is also optional.
+
+The performance timining of each matcher can be tweaked using the `:time` and `:warmup` parameters. These are expressed as seconds. By default `:time` is set to `0.2` and `:warmup` to `0.1` respectively. To change parameters do:
+
+```ruby
+expect { ... }.to perform_faster_than(time: 0.4, warmup: 0.2) { ... }
+```
+
+The higher values for `:time` and `:warmup` the more accurate average readings and hence more stable tests at the cost of longer test suite overall time.
 
 ## 2 Filtering
 
