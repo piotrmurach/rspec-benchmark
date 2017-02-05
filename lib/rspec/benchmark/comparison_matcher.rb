@@ -46,54 +46,52 @@ module RSpec
           end
         end
 
-        def convert_count(n)
-          case n
-          when Numeric then n
-          when :once then 1
-          when :twice then 2
-          when :thrice then 3
-          else
-            raise "The #{matcher_name} matcher is not designed to be used " \
-                  "with #{n} count type."
-          end
-        end
-
+        # Specify the minimum number of times a block
+        # is faster/slower than other.
+        # @api public
         def at_least(n)
-          @count = convert_count(n)
-          @count_type = :at_least
+          set_expected_times_count(:at_least, n)
           self
         end
 
+        # Specify the maximum number of times a block
+        # is faster/slower than another.
+        # @api public
         def at_most(n)
-          @count = convert_count(n)
-          @count_type = :at_most
+          set_expected_times_count(:at_most, n)
           self
         end
 
+        # Specify exact number of times a block
+        # is faster/slower than another.
+        # @api public
         def exactly(n)
-          @count = convert_count(n)
-          @count_type = :exactly
+          set_expected_times_count(:exactly, n)
           self
         end
 
+        # Specify that the code runs faster/slower exactly once.
+        # @api public
         def once
-          @count_type = :exactly
-          @count = 1
+          exactly(1)
           self
         end
 
+        # Specify that the code runs faster/slower exactly twice.
         def twice
-          @count_type = :exactly
-          @count = 2
+          exactly(2)
           self
         end
 
+        # Specify that the code runs faster/slower exactly thrice.
+        # @api public
         def thrice
-          @count_type = :exactly
-          @count = 3
+          exactly(3)
           self
         end
 
+        # No-op, syntactic sugar.
+        # @api public
         def times
           self
         end
@@ -130,6 +128,23 @@ module RSpec
         end
 
         private
+
+        def convert_count(n)
+          case n
+          when Numeric then n
+          when :once then 1
+          when :twice then 2
+          when :thrice then 3
+          else
+            raise "The #{matcher_name} matcher is not designed to be used " \
+                  "with #{n} count type."
+          end
+        end
+
+        def set_expected_times_count(type, n)
+          @count_type = type
+          @count = convert_count(n)
+        end
 
         # @return [Boolean]
         # @example
