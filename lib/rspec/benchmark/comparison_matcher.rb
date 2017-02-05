@@ -13,6 +13,7 @@ module RSpec
           @comparison_type = comparison_type
           @count = 1
           @count_type = :at_least
+          @bench = ::Benchmark::Perf::Iteration.new(time: 0.2, warmup: 0.1)
         end
 
         # Indicates this matcher matches against a block
@@ -32,8 +33,8 @@ module RSpec
         #
         # @api private
         def matches?(block)
-          @expected_iterations = ips_for(@expected)
-          @actual_iterations = ips_for(block)
+          @expected_ips, @expected_stdev, _ = @bench.run(&@expected)
+          @actual_ips, @actual_stdev, _ = @bench.run(&block)
 
           case @count_type
           when :at_most
@@ -207,13 +208,7 @@ module RSpec
         end
 
         def actual
-          @actual_iterations / @expected_iterations.to_f
-        end
-
-        def ips_for(block)
-          bench = ::Benchmark::Perf::Iteration.new(time: 0.2, warmup: 0.1)
-          average, stddev, _ = bench.run(&block)
-          average + 3 * stddev
+          @actual_ips / @expected_ips.to_f
         end
       end
     end # ComparisonMatcher
