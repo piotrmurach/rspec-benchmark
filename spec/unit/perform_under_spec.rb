@@ -2,9 +2,16 @@
 
 RSpec.describe 'RSpec::Benchmark::TimingMatcher', '#perform_under' do
   it "propagates error inside expectation" do
-    expect { 
+    expect {
       expect { raise 'boom' }.to perform_under(0.01).sec
     }.to raise_error(StandardError, /boom/)
+  end
+
+  it "allows to configure warmup cycles" do
+    bench = double(run: [0.005, 0.00001])
+    allow(::Benchmark::Perf::ExecutionTime).to receive(:new).and_return(bench)
+    expect { 'x' * 1024 * 10 }.to perform_under(0.006, warmup: 2).sec.and_sample(2)
+    expect(::Benchmark::Perf::ExecutionTime).to have_received(:new).with(warmup: 2)
   end
 
   context "expect { ... }.to perfom_under(...).and_sample" do

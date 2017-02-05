@@ -11,12 +11,14 @@ module RSpec
 
         attr_reader :threshold
 
-        def initialize(threshold, options = {})
+        def initialize(threshold, **options)
           @threshold = threshold
           @samples = options.fetch(:samples) { 30 }
           @scale = threshold.to_s.split(/\./).last.size
           @block = nil
           @confidence_interval = nil
+          warmup = options.fetch(:warmup) { 1 }
+          @bench = ::Benchmark::Perf::ExecutionTime.new(warmup: warmup)
         end
 
         # Indicates this matcher matches against a block
@@ -34,7 +36,6 @@ module RSpec
         def matches?(block)
           @block = block
           return false unless block.is_a?(Proc)
-          @bench = ::Benchmark::Perf::ExecutionTime.new
           @average, @stddev = @bench.run(@samples, &block)
           @average <= @threshold
         end
