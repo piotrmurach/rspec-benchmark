@@ -1,12 +1,15 @@
 # RSpec::Benchmark
+
 [![Gem Version](https://badge.fury.io/rb/rspec-benchmark.svg)][gem]
 [![Build Status](https://secure.travis-ci.org/piotrmurach/rspec-benchmark.svg?branch=master)][travis]
+[![Build status](https://ci.appveyor.com/api/projects/status/nxq3dr8xkafmgiv0?svg=true)][appveyor]
 [![Code Climate](https://codeclimate.com/github/piotrmurach/rspec-benchmark/badges/gpa.svg)][codeclimate]
 [![Coverage Status](https://coveralls.io/repos/github/piotrmurach/rspec-benchmark/badge.svg)][coverage]
 [![Inline docs](http://inch-ci.org/github/piotrmurach/rspec-benchmark.svg?branch=master)][inchpages]
 
 [gem]: http://badge.fury.io/rb/rspec-benchmark
 [travis]: http://travis-ci.org/piotrmurach/rspec-benchmark
+[appveyor]: https://ci.appveyor.com/project/piotrmurach/rspec-benchmark
 [codeclimate]: https://codeclimate.com/github/piotrmurach/rspec-benchmark
 [coverage]: https://coveralls.io/github/piotrmurach/rspec-benchmark
 [inchpages]: http://inch-ci.org/github/piotrmurach/rspec-benchmark
@@ -180,4 +183,4 @@ If you have any other observations please share them!
 
 ## Copyright
 
-Copyright (c) 2016-2017 Piotr Murach. See LICENSE for further details.
+Copyright (c) 2016-2018 Piotr Murach. See LICENSE for further details.
