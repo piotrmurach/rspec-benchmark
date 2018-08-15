@@ -1,6 +1,4 @@
-# encoding: utf-8
-
-if RUBY_VERSION > '1.9' and (ENV['COVERAGE'] || ENV['TRAVIS'])
+if ENV['COVERAGE'] || ENV['TRAVIS']
   require 'simplecov'
   require 'coveralls'
 
@@ -15,6 +13,7 @@ if RUBY_VERSION > '1.9' and (ENV['COVERAGE'] || ENV['TRAVIS'])
   end
 end
 
+require 'bundler/setup'
 require 'rspec-benchmark'
 
 RSpec.configure do |config|
