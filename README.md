@@ -146,21 +146,31 @@ The higher values for `:time` and `:warmup` the more accurate average readings a
 
 ## 2 Filtering
 
-Usually performance tests are best left for CI or occasional runs that do not affect TDD/BDD cycle. To achieve isolation you can use RSpec filters. For instance, in `spec_helper`:
+Usually performance tests are best left for CI or occasional runs that do not affect TDD/BDD cycle.
 
-```
-config.filter_run_excluding performance: true
+To achieve isolation you can use RSpec filters to exclude performance tests from regular runs. For example, in `spec_helper`:
+
+```ruby
+RSpec.config do |config|
+  config.filter_run_excluding perf: true
+end
 ```
 
 and then in your example group do:
 
 ```ruby
-RSpec.describe ..., performance: true do
+RSpec.describe ..., :perf do
   ...
 end
 ```
 
-Another option is to simply isolate the performance specs in separate directory suc as `spec/performance/...` and add custom rake task.
+Then you can run groups or examples tagged with `perf`:
+
+```
+rspec --tag perf
+```
+
+Another option is to simply isolate the performance specs in separate directory such as `spec/performance/...` and add custom rake task to run them.
 
 ## 3 Caveats
 
