@@ -30,8 +30,9 @@ If you are new to performance testing you may find [Caveats](#3-caveats) section
   * [1.1 Execution Time](#11-execution-time)
   * [1.2 Iterations ](#12-iterations)
   * [1.3 Comparison ](#13-comparison)
-* [2. Filtering](#2-filtering)
-* [3. Caveats](#3-caveats)
+* [2. Compounding](#2-compounding)
+* [3. Filtering](#2-filtering)
+* [4. Caveats](#3-caveats)
 
 ## Installation
 
@@ -83,6 +84,7 @@ All measurements are assumed to be expressed as seconds. However, you can also p
 
 ```ruby
 expect { ... }.to perform_under(10).ms
+expect { ... }.to perform_under(10000).us
 ```
 
 by default the above code will be sampled `30` times but you can change this by using `and_sample` like so:
@@ -144,7 +146,17 @@ expect { ... }.to perform_faster_than(time: 0.4, warmup: 0.2) { ... }
 
 The higher values for `:time` and `:warmup` the more accurate average readings and hence more stable tests at the cost of longer test suite overall time.
 
-## 2 Filtering
+## 2. Compounding
+
+All the matchers can be used in compound expressions via `and/or`. For example, if you wish to check if a computation performs under certain time boundry and iterates at least a given number do:
+
+```ruby
+expect {
+  ...
+}.to perform_under(6).ms and perform_at_least(10000).ips
+```
+
+## 3. Filtering
 
 Usually performance tests are best left for CI or occasional runs that do not affect TDD/BDD cycle.
 
@@ -172,7 +184,7 @@ rspec --tag perf
 
 Another option is to simply isolate the performance specs in separate directory such as `spec/performance/...` and add custom rake task to run them.
 
-## 3 Caveats
+## 4. Caveats
 
 When writing performance tests things to be mindful are:
 
