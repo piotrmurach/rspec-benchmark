@@ -22,7 +22,7 @@
 
 Integration and unit tests ensure that changing code maintains expected functionality. What is not guaranteed is the code changes impact on library performance. It is easy to refactor your way out of fast to slow code.
 
-If you are new to performance testing you may find [Caveats](#3-caveats) section helpful.
+If you are new to performance testing you may find [Caveats](#4-caveats) section helpful.
 
 ## Contents
 
@@ -31,8 +31,8 @@ If you are new to performance testing you may find [Caveats](#3-caveats) section
   * [1.2 Iterations ](#12-iterations)
   * [1.3 Comparison ](#13-comparison)
 * [2. Compounding](#2-compounding)
-* [3. Filtering](#2-filtering)
-* [4. Caveats](#3-caveats)
+* [3. Filtering](#3-filtering)
+* [4. Caveats](#4-caveats)
 
 ## Installation
 
