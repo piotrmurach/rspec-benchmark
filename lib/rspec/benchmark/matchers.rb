@@ -1,8 +1,9 @@
-# encoding: utf-8
+# frozen_string_literal
 
-require 'rspec/benchmark/timing_matcher'
-require 'rspec/benchmark/iteration_matcher'
-require 'rspec/benchmark/comparison_matcher'
+require_relative 'comparison_matcher'
+require_relative 'complexity_matcher'
+require_relative 'iteration_matcher'
+require_relative 'timing_matcher'
 
 module RSpec
   module Benchmark
@@ -74,6 +75,20 @@ module RSpec
       # @api public
       def perform_slower_than(**options, &sample)
         ComparisonMatcher::Matcher.new(sample, :slower, options)
+      end
+
+      # Pass if code block performs linear
+      #
+      # @example
+      #   expect { ... }.to perform_linear
+      #   expect { ... }.to perform_linear.within(1, 100_000)
+      #   expect { ... }.to perform_linear.within(1, 100_000, ratio: 4)
+      #
+      # @param [Proc] sample
+      #
+      # @api public
+      def perform_linear(**options)
+        ComplexityMatcher::Matcher.new(:linear, options)
       end
     end # Matchers
   end # Benchmark
