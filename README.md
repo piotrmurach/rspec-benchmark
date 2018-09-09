@@ -16,7 +16,7 @@
 
 > Performance testing matchers for RSpec
 
-**RSpec::Benchmark** uses [benchmark-perf](https://github.com/piotrmurach/benchmark-perf) for measurements.
+**RSpec::Benchmark** uses [benchmark-perf](https://github.com/piotrmurach/benchmark-perf) for measurements and [benchmark-trend](https://github.com/piotrmurach/benchmark-trend) for asymptotic behaviour calculations.
 
 ## Why?
 
@@ -106,7 +106,7 @@ The `ips` part is optional but its usage clarifies the intent.
 The performance timining of this matcher can be tweaked using the `:time` and `:warmup` parameters. These are expressed as seconds. By default `:time` is set to `0.2` and `:warmup` to `0.1` respectively. To change parameters do:
 
 ```ruby
-expect { ... }.to perform_at_least(10000, time: 0.4, warmup: 0.2) { ... }
+expect { ... }.to perform_at_least(10000, time: 0.4, warmup: 0.2)
 ```
 
 The higher values for `:time` and `:warmup` the more accurate average readings and hence more stable tests at the cost of longer test suite overall time.
