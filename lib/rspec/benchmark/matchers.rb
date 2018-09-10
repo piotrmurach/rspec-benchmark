@@ -84,11 +84,21 @@ module RSpec
       #   expect { ... }.to perform_linear.within(1, 100_000)
       #   expect { ... }.to perform_linear.within(1, 100_000, ratio: 4)
       #
-      # @param [Proc] sample
-      #
       # @api public
       def perform_linear(**options)
         ComplexityMatcher::Matcher.new(:linear, options)
+      end
+
+      # Pass if code block performs exponential
+      #
+      # @example
+      #   expect { ... }.to perform_exponential
+      #   expect { ... }.to perform_exponential.within(1, 100_000)
+      #   expect { ... }.to perform_exponential.within(1, 100_000, ratio: 4)
+      #
+      # @api public
+      def perform_exponential(**options)
+        ComplexityMatcher::Matcher.new(:exponential, options)
       end
     end # Matchers
   end # Benchmark
