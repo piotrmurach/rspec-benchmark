@@ -14,9 +14,11 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_linear' do
 
   context "expect { ... }.to perfom_linear" do
     it "passes if the block performs linear" do
+      range = bench_range(1, 100_000)
+      numbers = range.map { |n| Array.new(n) { rand(n) } }.each
       expect { |n|
-        'x' * 1024 * 10
-      }.to perform_linear.within(8, 8 << 20)
+        numbers.next.max
+      }.to perform_linear.within(range[0], range[-1])
     end
 
     it "fails if the block doesn't perform linear" do
@@ -36,10 +38,12 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_linear' do
     end
 
     it "fails if the block doesn't perform linear" do
+      range = bench_range(1, 100_000)
+      numbers = range.map { |n| Array.new(n) { rand(n) } }.each
       expect {
         expect { |n|
-          'x' * 1024 * 10
-        }.not_to perform_linear.within(1, 100)
+          numbers.next.max
+        }.not_to perform_linear.within(range[0], range[-1])
       }.to raise_error("expected block not to perform linear, but performed linear")
     end
   end
