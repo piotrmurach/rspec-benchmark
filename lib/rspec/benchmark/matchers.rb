@@ -77,6 +77,19 @@ module RSpec
         ComparisonMatcher::Matcher.new(sample, :slower, options)
       end
 
+      # Pass if code block performs logarithmic
+      #
+      # @example
+      #   expect { ... }.to perform_logarithmic
+      #   expect { ... }.to perform_logarithmic
+      #   expect { ... }.to perform_logarithmic.within(1, 100_000)
+      #   expect { ... }.to perform_logarithimic.within(1, 100_000, ratio: 4)
+      #
+      # @api public
+      def perform_logarithmic(**options)
+        ComplexityMatcher::Matcher.new(:logarithmic, options)
+      end
+
       # Pass if code block performs linear
       #
       # @example
