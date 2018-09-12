@@ -20,10 +20,13 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_exponential' do
     end
 
     it "fails if the block doesn't perform exponential" do
+      range = bench_range(1, 100_000)
+      numbers = range.map { |n| Array.new(n) { rand(n) } }.each
+
       expect {
         expect { |n|
-          'x' * 1024 * 10
-        }.to perform_exponential.within(8, 8 << 15)
+          numbers.next.max
+        }.to perform_exponential.within(range[0], range[-1])
       }.to raise_error("expected block to perform exponential, but performed linear")
     end
   end
