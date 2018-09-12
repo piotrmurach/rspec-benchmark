@@ -100,6 +100,10 @@ module RSpec
       def perform_exponential(**options)
         ComplexityMatcher::Matcher.new(:exponential, options)
       end
+
+      def bench_range(*args)
+        ::Benchmark::Trend.range(*args)
+      end
     end # Matchers
   end # Benchmark
 end # RSpec
