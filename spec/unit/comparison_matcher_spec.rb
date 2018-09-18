@@ -24,6 +24,25 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
     expect(::Benchmark::Perf::Iteration).to have_received(:run).with(time: 0.3, warmup: 0.2).twice
   end
 
+  context 'algorithms comparison' do
+    def clamp(num, min, max)
+      [num, min, max].sort[1]
+    end
+
+    def clamp_fast(num, min, max)
+      num > max ? max : (num < min ? min : num)
+    end
+
+    it "infers one implementation faster than another" do
+      num = rand(1_000)
+      expect {
+        clamp_fast(num, num / 2, num * 2)
+      }.to perform_faster_than {
+        clamp(num, num / 2, num * 2)
+      }.at_least(2).times
+    end
+  end
+
   describe "expect { ... }.to perform_faster_than(...)" do
     it "passes if the block performs faster than sample" do
       expect { 1 << 1 }.to perform_faster_than { 'x' * 10 * 1024 }
