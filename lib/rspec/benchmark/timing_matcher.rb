@@ -13,12 +13,11 @@ module RSpec
 
         def initialize(threshold, **options)
           @threshold = threshold
-          @samples = options.fetch(:samples) { 30 }
-          @scale = threshold.to_s.split(/\./).last.size
-          @block = nil
-          @confidence_interval = nil
-          warmup = options.fetch(:warmup) { 1 }
-          @bench = ::Benchmark::Perf::ExecutionTime.new(warmup: warmup)
+          @samples   = options.fetch(:samples) { 30 }
+          @warmup    = options.fetch(:warmup) { 1 }
+          @scale     = threshold.to_s.split(/\./).last.size
+          @block     = nil
+          @bench     = ::Benchmark::Perf::ExecutionTime
         end
 
         # Indicates this matcher matches against a block
@@ -36,7 +35,7 @@ module RSpec
         def matches?(block)
           @block = block
           return false unless block.is_a?(Proc)
-          @average, @stddev = @bench.run(@samples, &block)
+          @average, @stddev = @bench.run(times: @samples, warmup: @warmup, &block)
           @average <= @threshold
         end
 
