@@ -16,13 +16,12 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
   end
 
   it "allows to configure matcher timings" do
-    bench = double(run: 100)
-    allow(::Benchmark::Perf::Iteration).to receive(:new).and_return(bench)
+    allow(::Benchmark::Perf::Iteration).to receive(:run).and_return(100)
     sample = -> { 'x' * 10 * 1024 }
+
     expect { 1 << 1 }.to perform_faster_than(warmup: 0.2, time: 0.3, &sample).exactly(1).times
 
-    expect(::Benchmark::Perf::Iteration).to have_received(:new).
-      with(time: 0.3, warmup: 0.2)
+    expect(::Benchmark::Perf::Iteration).to have_received(:run).with(time: 0.3, warmup: 0.2).twice
   end
 
   describe "expect { ... }.to perform_faster_than(...)" do

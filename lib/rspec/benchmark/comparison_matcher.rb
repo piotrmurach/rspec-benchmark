@@ -11,11 +11,11 @@ module RSpec
           check_comparison(comparison_type)
           @expected = expected
           @comparison_type = comparison_type
-          @count = 1
+          @count      = 1
           @count_type = :at_least
-          time   = options.fetch(:time) { 0.2 }
-          warmup = options.fetch(:warmup) { 0.1 }
-          @bench = ::Benchmark::Perf::Iteration.new(time: time, warmup: warmup)
+          @time       = options.fetch(:time) { 0.2 }
+          @warmup     = options.fetch(:warmup) { 0.1 }
+          @bench      = ::Benchmark::Perf::Iteration
         end
 
         # Indicates this matcher matches against a block
@@ -38,8 +38,8 @@ module RSpec
           @actual = block
           return false unless @actual.is_a?(Proc)
 
-          @expected_ips, @expected_stdev, = @bench.run(&@expected)
-          @actual_ips, @actual_stdev, = @bench.run(&@actual)
+          @expected_ips, @expected_stdev, = @bench.run(time: @time, warmup: @warmup, &@expected)
+          @actual_ips, @actual_stdev, = @bench.run(time: @time, warmup: @warmup, &@actual)
 
           @ratio = @actual_ips / @expected_ips.to_f
 
