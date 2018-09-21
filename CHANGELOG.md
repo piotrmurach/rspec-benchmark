@@ -1,5 +1,19 @@
 # Change log
 
+## [v0.4.0] - 2018-09-xx
+
+### Added
+* Add benchmark-trend as a dependency
+* Add ComplexityMatcher with #perform_linear, #perform_logarithmic,
+  #perform_power and #perform_exponential expectations
+
+### Changed
+* Change to require Ruby >= 2.0.0
+* Change to update benchmark-perf dependency
+* Change IterationMatcher to use new Benchmark::Perf::Iteration api
+* Change TimingMatcher to use new Benchmark::Perf::ExecutionTime api
+* Change ComparisonMatcher to use new Benchmark::Perf::Iteration api
+
 ## [v0.3.0] - 2017-02-05
 
 ### Added
@@ -15,6 +29,7 @@
 
 Initial release
 
+[v0.4.0]: https://github.com/peter-murach/rspec-benchmark/compare/v0.3.0...v0.4.0
 [v0.3.0]: https://github.com/peter-murach/rspec-benchmark/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/peter-murach/rspec-benchmark/compare/v0.1.0...v0.2.0
 [v0.1.0]: https://github.com/peter-murach/rspec-benchmark/compare/v0.1.0
