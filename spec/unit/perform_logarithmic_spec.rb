@@ -15,10 +15,10 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_logarithmic' do
   context "expect { ... }.to perfom_logarithmic" do
     it "passes if the block performs logarithmic" do
       range = bench_range(1, 8 << 15, ratio: 2)
-      arrays_of_numbers = range.map { |n| Array.new(n) { rand(n) } }.each
+      numbers = range.map { |n| Array.new(n) { rand(n) } }.each
 
       expect { |n|
-        arrays_of_numbers.next.sum
+        numbers.next.bsearch { |x| x > n/2 }
       }.to perform_logarithmic.within(range[0], range[-1], ratio: 2)
     end
 
@@ -39,12 +39,12 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_logarithmic' do
     end
 
     it "fails if the block doesn't perform logarithmic" do
-      range = bench_range(1, 8 << 15, ratio: 2)
-      arrays_of_numbers = range.map { |n| Array.new(n) { rand(n) } }.each
+      range = bench_range(1, 8 << 15, ratio: 8)
+      numbers = range.map { |n| Array.new(n) { rand(n) } }.each
 
       expect {
         expect { |n|
-          arrays_of_numbers.next.sum
+          numbers.next.bsearch { |x| x > n/2 }
         }.not_to perform_logarithmic.within(range[0], range[-1], ratio: 2)
       }.to raise_error("expected block not to perform logarithmic, but performed logarithmic")
     end
