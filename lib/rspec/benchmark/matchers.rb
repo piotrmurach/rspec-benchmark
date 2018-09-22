@@ -102,6 +102,18 @@ module RSpec
         ComplexityMatcher::Matcher.new(:linear, options)
       end
 
+      # Pass if code block performs power
+      #
+      # @example
+      #   expect { ... }.to perform_power
+      #   expect { ... }.to perform_power.within(1, 100_000)
+      #   expect { ... }.to perform_power.within(1, 100_000, ratio: 4)
+      #
+      # @api public
+      def perform_power(**options)
+        ComplexityMatcher::Matcher.new(:power, options)
+      end
+
       # Pass if code block performs exponential
       #
       # @example
