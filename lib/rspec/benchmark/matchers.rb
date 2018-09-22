@@ -126,6 +126,19 @@ module RSpec
         ComplexityMatcher::Matcher.new(:exponential, options)
       end
 
+      # Generate a geometric progression of inputs
+      #
+      # The default range is generated in the multiples of 8.
+      #
+      # @example
+      #   bench_range(8, 8 << 10)
+      #   # => [8, 64, 512, 4096, 8192]
+      #
+      # @param [Integer] start
+      # @param [Integer] limit
+      # @param [Integer] ratio
+      #
+      # @api public
       def bench_range(*args)
         ::Benchmark::Trend.range(*args)
       end
