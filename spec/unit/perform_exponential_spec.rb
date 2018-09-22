@@ -16,7 +16,7 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_exponential' do
     it "passes if the block performs exponential" do
       expect { |n|
         fibonacci(n)
-      }.to perform_exponential.within(1, 25, ratio: 2)
+      }.to perform_exponential.within(1, 15, ratio: 2).sample(100)
     end
 
     it "fails if the block doesn't perform exponential" do
@@ -33,14 +33,14 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_exponential' do
 
   context "expect { ... }.not_to perfom_exponential" do
     it "passes if the block does not perform exponential" do
-      expect { |n| n }.not_to perform_exponential.within(1, 25)
+      expect { |n| n }.not_to perform_exponential.within(1, 10_000).sample(100)
     end
 
     it "fails if the block doesn't perform exponential" do
       expect {
         expect { |n|
           fibonacci(n)
-        }.not_to perform_exponential.within(1, 25, ratio: 2)
+        }.not_to perform_exponential.within(1, 15, ratio: 2).sample(100)
       }.to raise_error("expected block not to perform exponential, but performed exponential")
     end
   end
