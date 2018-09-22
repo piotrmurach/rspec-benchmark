@@ -43,7 +43,7 @@ module RSpec
           !matches?(block) && block.is_a?(Proc)
         end
 
-        def and_sample(samples)
+        def sample(samples)
           @samples = samples
           self
         end
