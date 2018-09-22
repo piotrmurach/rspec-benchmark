@@ -34,7 +34,7 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_exponential' do
   context "expect { ... }.not_to perfom_exponential" do
     it "passes if the block does not perform exponential" do
       expect { |n|
-        'x' * 1024 * 10
+        n
       }.not_to perform_exponential.within(1, 25)
     end
 
