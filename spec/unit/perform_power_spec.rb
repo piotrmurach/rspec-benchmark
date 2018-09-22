@@ -31,7 +31,7 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_power' do
 
       expect { |n, i|
         prefix_avg(numbers[i])
-      }.to perform_power.within(range[0], range[-1]).sample(10).times
+      }.to perform_power.within(range[0], range[-1]).sample(100).times
     end
 
     it "fails if the block doesn't perform power" do
@@ -57,7 +57,7 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_power' do
       expect {
         expect { |n, i|
           prefix_avg(numbers[i])
-        }.not_to perform_power.within(range[0], range[-1]).sample(10).times
+        }.not_to perform_power.within(range[0], range[-1]).sample(100).times
       }.to raise_error("expected block not to perform power, but performed power")
     end
   end
