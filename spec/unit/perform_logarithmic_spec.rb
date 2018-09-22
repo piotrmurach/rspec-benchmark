@@ -6,6 +6,12 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_logarithmic' do
     n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
   end
 
+  # Iterated logarithm
+  # https://en.wikipedia.org/wiki/Iterated_logarithm
+  def log_star(n, repeat = 0)
+    n <= 1 ? repeat : 1 + log_star(Math.log(n), repeat += 1)
+  end
+
   it "propagates error inside expectation" do
     expect {
       expect { raise 'boom' }.to perform_logarithmic
@@ -13,13 +19,13 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_logarithmic' do
   end
 
   context "expect { ... }.to perfom_logarithmic" do
-    it "passes if the block performs logarithmic" do
-      range = bench_range(1, 8 << 15, ratio: 2)
-      numbers = range.map { |n| Array.new(n) { rand(n) } }.each
+    xit "passes if the block performs logarithmic" do
+      range = bench_range(1, 8 << 18, ratio: 2)
+      numbers = range.map { |n| (1..n).to_a }
 
-      expect { |n|
-        numbers.next.bsearch { |x| x > n/2 }
-      }.to perform_logarithmic.within(range[0], range[-1], ratio: 2)
+      expect { |n, i|
+        numbers[i].bsearch { |x| x == 1 }
+      }.to perform_logarithmic.within(range[0], range[-1], ratio: 2).sample(100).times
     end
 
     it "fails if the block doesn't perform logarithmic" do
@@ -38,14 +44,14 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_logarithmic' do
       }.not_to perform_logarithmic.within(1, 25)
     end
 
-    it "fails if the block doesn't perform logarithmic" do
-      range = bench_range(1, 8 << 15, ratio: 8)
-      numbers = range.map { |n| Array.new(n) { rand(n) } }.each
+    xit "fails if the block doesn't perform logarithmic" do
+      range = bench_range(1, 8 << 18, ratio: 2)
+      numbers = range.map { |n| (1..n).to_a }
 
       expect {
-        expect { |n|
-          numbers.next.bsearch { |x| x > n/2 }
-        }.not_to perform_logarithmic.within(range[0], range[-1], ratio: 2)
+        expect { |n, i|
+          numbers[i].bsearch { |x| x == 1 }
+        }.not_to perform_logarithmic.within(range[0], range[-1], ratio: 2).sample(100).times
       }.to raise_error("expected block not to perform logarithmic, but performed logarithmic")
     end
   end
