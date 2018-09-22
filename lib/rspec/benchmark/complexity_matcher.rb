@@ -63,7 +63,7 @@ module RSpec
         def failure_reason
           "performed #{actual}"
         end
-      end
+      end # Matcher
     end # ComplexityMatcher
   end # Benchmark
 end # RSpec
