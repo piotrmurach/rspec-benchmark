@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_power' do
-  # exponential
-  def fibonacci(n)
-    n < 2 ? n : fibonacci(n - 1) + fibonacci(n - 2)
-  end
-
   def prefix_avg(numbers)
     result = []
     numbers.each_with_index do |i, num|
@@ -36,18 +31,14 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_power' do
 
     it "fails if the block doesn't perform power" do
       expect {
-        expect { |n|
-          fibonacci(n)
-        }.to perform_power.within(1, 25, ratio: 2)
-      }.to raise_error("expected block to perform power, but performed exponential")
+        expect { |n| n }.to perform_power.within(1, 10_000).sample(100)
+      }.to raise_error("expected block to perform power, but performed constant")
     end
   end
 
   context "expect { ... }.not_to perfom_power" do
     it "passes if the block does not perform power" do
-      expect { |n|
-        fibonacci(n)
-      }.not_to perform_power.within(1, 25, ratio: 2)
+      expect { |n| n }.not_to perform_power.within(1, 10_000).sample(100)
     end
 
     it "fails if the block doesn't perform power" do
