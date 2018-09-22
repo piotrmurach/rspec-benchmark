@@ -32,7 +32,7 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_logarithmic' do
       expect {
         expect { |n|
           fibonacci(n)
-        }.to perform_logarithmic.within(1, 25)
+        }.to perform_logarithmic.within(1, 25, ratio: 2)
       }.to raise_error("expected block to perform logarithmic, but performed exponential")
     end
   end
@@ -41,7 +41,7 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_logarithmic' do
     it "passes if the block does not perform logarithmic" do
       expect { |n|
         fibonacci(n)
-      }.not_to perform_logarithmic.within(1, 25)
+      }.not_to perform_logarithmic.within(1, 25, ratio: 2)
     end
 
     xit "fails if the block doesn't perform logarithmic" do

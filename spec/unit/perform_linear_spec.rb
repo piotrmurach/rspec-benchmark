@@ -25,7 +25,7 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_linear' do
       expect {
         expect { |n|
           fibonacci(n)
-        }.to perform_linear.within(1, 25)
+        }.to perform_linear.within(1, 25, ratio: 2)
       }.to raise_error("expected block to perform linear, but performed exponential")
     end
   end
@@ -34,7 +34,7 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_linear' do
     it "passes if the block does not perform linear" do
       expect { |n|
         fibonacci(n)
-      }.not_to perform_linear.within(1, 25)
+      }.not_to perform_linear.within(1, 25, ratio: 2)
     end
 
     it "fails if the block doesn't perform linear" do

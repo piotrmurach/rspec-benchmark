@@ -38,7 +38,7 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_power' do
       expect {
         expect { |n|
           fibonacci(n)
-        }.to perform_power.within(1, 25)
+        }.to perform_power.within(1, 25, ratio: 2)
       }.to raise_error("expected block to perform power, but performed exponential")
     end
   end
@@ -47,7 +47,7 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_power' do
     it "passes if the block does not perform power" do
       expect { |n|
         fibonacci(n)
-      }.not_to perform_power.within(1, 25)
+      }.not_to perform_power.within(1, 25, ratio: 2)
     end
 
     it "fails if the block doesn't perform power" do
