@@ -39,7 +39,7 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
         clamp_fast(num, num / 2, num * 2)
       }.to perform_faster_than {
         clamp(num, num / 2, num * 2)
-      }.at_least(2).times
+      }.at_least(1.5).times
     end
   end
 
