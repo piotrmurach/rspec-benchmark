@@ -77,6 +77,18 @@ module RSpec
         ComparisonMatcher::Matcher.new(sample, :slower, options)
       end
 
+      # Pass if code block performs constant
+      #
+      # @example
+      #   expect { ... }.to perform_constant
+      #   expect { ... }.to perform_constant.within(1, 100_000)
+      #   expect { ... }.to perform_constant.within(1, 100_000, ratio: 4)
+      #
+      # @api public
+      def perform_constant(**options)
+        ComplexityMatcher::Matcher.new(:constant, options)
+      end
+
       # Pass if code block performs logarithmic
       #
       # @example
