@@ -11,7 +11,7 @@ RSpec.describe 'RSpec::Benchmark::TimingMatcher', '#perform_under' do
     bench = [0.005, 0.00001]
     allow(::Benchmark::Perf::ExecutionTime).to receive(:run).and_return(bench)
     expect { 'x' * 1024 * 10 }.to perform_under(0.006, warmup: 1.5).sec.sample(3)
-    expect(::Benchmark::Perf::ExecutionTime).to have_received(:run).with(times: 3, warmup: 1.5)
+    expect(::Benchmark::Perf::ExecutionTime).to have_received(:run).with(repeat: 3, warmup: 1.5)
   end
 
   context "expect { ... }.to perfom_under(...).sample" do

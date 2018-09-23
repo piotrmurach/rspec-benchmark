@@ -35,7 +35,7 @@ module RSpec
         def matches?(block)
           @block = block
           return false unless block.is_a?(Proc)
-          @average, @stddev = @bench.run(times: @samples, warmup: @warmup, &block)
+          @average, @stddev = @bench.run(repeat: @samples, warmup: @warmup, &block)
           @average <= @threshold
         end
 
