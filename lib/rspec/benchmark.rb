@@ -1,7 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
-require 'benchmark-perf'
-
-require 'rspec/benchmark/format_time'
-require 'rspec/benchmark/matchers'
-require 'rspec/benchmark/version'
+require_relative 'benchmark/matchers'
+require_relative 'benchmark/version'

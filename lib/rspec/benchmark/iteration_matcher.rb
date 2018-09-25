@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'benchmark-perf'
+
 module RSpec
   module Benchmark
     module IterationMatcher
