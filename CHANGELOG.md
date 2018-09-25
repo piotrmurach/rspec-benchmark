@@ -4,8 +4,8 @@
 
 ### Added
 * Add benchmark-trend as a dependency
-* Add ComplexityMatcher with #perform_linear, #perform_logarithmic,
-  #perform_power and #perform_exponential expectations
+* Add ComplexityMatcher with #perform_linear, #perform_constant,
+  #perform_logarithmic, #perform_power and #perform_exponential expectations
 
 ### Changed
 * Change to require Ruby >= 2.0.0
@@ -13,6 +13,8 @@
 * Change IterationMatcher to use new Benchmark::Perf::Iteration api
 * Change TimingMatcher to use new Benchmark::Perf::ExecutionTime api
 * Change ComparisonMatcher to use new Benchmark::Perf::Iteration api
+* Change #and_sample matcher to #sample
+* Change TimingMatcher to run only one sample by default
 
 ## [v0.3.0] - 2017-02-05
 
