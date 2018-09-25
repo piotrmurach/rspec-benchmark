@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 RSpec.describe 'RSpec::Benchmark::TimingMatcher', '#perform_under' do
   it "propagates error inside expectation" do
@@ -12,6 +12,12 @@ RSpec.describe 'RSpec::Benchmark::TimingMatcher', '#perform_under' do
     allow(::Benchmark::Perf::ExecutionTime).to receive(:run).and_return(bench)
     expect { 'x' * 1024 * 10 }.to perform_under(0.006, warmup: 1.5).sec.sample(3)
     expect(::Benchmark::Perf::ExecutionTime).to have_received(:run).with(repeat: 3, warmup: 1.5)
+  end
+
+  it "doesn't allow sample size less than 1" do
+    expect {
+      expect { 'x' * 1024 * 10 }.to perform_under(0.006).sec.sample(0)
+    }.to raise_error(/Repeat value: 0 needs to be greater than 0/)
   end
 
   context "expect { ... }.to perfom_under(...).sample" do
