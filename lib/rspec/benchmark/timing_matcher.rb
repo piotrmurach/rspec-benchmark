@@ -52,6 +52,12 @@ module RSpec
           self
         end
 
+        # No-op, syntactic sugar.
+        # @api public
+        def times
+          self
+        end
+
         def secs
           self
         end
