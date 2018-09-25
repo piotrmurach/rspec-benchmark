@@ -17,7 +17,7 @@ module RSpec
 
         def initialize(threshold, **options)
           @threshold = threshold
-          @samples   = options.fetch(:samples) { 30 }
+          @samples   = options.fetch(:samples) { 1 }
           @warmup    = options.fetch(:warmup) { 1 }
           @scale     = threshold.to_s.split(/\./).last.size
           @block     = nil
