@@ -115,6 +115,14 @@ For extra expressiveness you can use `times`:
 expect { ... }.to perform_under(0.01).sample(10).times
 ```
 
+You can also use `warmup` matcher that can run your code before the actual samples are taken to reduce erratic execution times.
+
+For example, you can execute code twice before you take 10 actual measurements:
+
+```ruby
+expect { ... }.to perform_under(0.01).sec.warmup(2).times.sample(10).times
+```
+
 ### 1.2 Iterations
 
 The `perform_at_least` matcher allows you to establish performance benchmark of how many iterations per second a given block of code should perform. For example, to expect a given code to perform at least 10K iterations per second do:
