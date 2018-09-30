@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if ENV['COVERAGE'] || ENV['TRAVIS']
   require 'simplecov'
   require 'coveralls'
@@ -14,21 +16,14 @@ if ENV['COVERAGE'] || ENV['TRAVIS']
 end
 
 require 'bundler/setup'
-require 'rspec-benchmark'
+require 'rspec/benchmark'
 
 RSpec.configure do |config|
   config.include(RSpec::Benchmark::Matchers)
 
-  config.expect_with :rspec do |expectations|
-    expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
   end
-
-  config.mock_with :rspec do |mocks|
-    mocks.verify_partial_doubles = true
-  end
-
-  config.filter_run :focus
-  config.run_all_when_everything_filtered = true
 
   config.disable_monkey_patching!
 
@@ -39,8 +34,4 @@ RSpec.configure do |config|
   end
 
   config.profile_examples = 2
-
-  config.order = :random
-
-  Kernel.srand config.seed
 end
