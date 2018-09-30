@@ -4,9 +4,10 @@ RSpec.describe '#perform_at_least' do
   it "allows to configure matcher timings" do
     bench = [10_000, 100]
     allow(::Benchmark::Perf::Iteration).to receive(:run).and_return(bench)
+
     expect {
       'x' * 1024 * 10
-    }.to perform_at_least(10_000, warmup: 0.2, time: 0.3)
+    }.to perform_at_least(10_000).within(0.3).warmup(0.2)
 
     expect(::Benchmark::Perf::Iteration).to have_received(:run).
       with(time: 0.3, warmup: 0.2)

@@ -33,6 +33,30 @@ module RSpec
           @iterations <= (@average + 3 * @stddev)
         end
 
+        # The time before measurements are taken
+        #
+        # @param [Numeric] value
+        #   the time before measurements are taken
+        #
+        # @api public
+        def warmup(value)
+          @warmup = value
+          self
+        end
+
+        # Time to measure iteration for
+        #
+        # @param [Numeric] value
+        #   the time to take measurements for
+        #
+        # @api public
+        def within(value)
+          @time = value
+          self
+        end
+
+        # Sugar syntax for iterations per second
+        # @api public
         def ips
           self
         end
