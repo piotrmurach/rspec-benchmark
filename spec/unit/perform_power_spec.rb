@@ -26,19 +26,19 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_power' do
 
       expect { |n, i|
         prefix_avg(numbers[i])
-      }.to perform_power.within(range[0], range[-1]).sample(100).times
+      }.to perform_power.in_range(range[0], range[-1]).sample(100).times
     end
 
     it "fails if the block doesn't perform power" do
       expect {
-        expect { |n| n }.to perform_power.within(1, 10_000).sample(100)
+        expect { |n| n }.to perform_power.in_range(1, 10_000).sample(100)
       }.to raise_error("expected block to perform power, but performed constant")
     end
   end
 
   context "expect { ... }.not_to perfom_power" do
     it "passes if the block does not perform power" do
-      expect { |n| n }.not_to perform_power.within(1, 10_000).sample(100)
+      expect { |n| n }.not_to perform_power.in_range(1, 10_000).sample(100)
     end
 
     it "fails if the block doesn't perform power" do
@@ -48,7 +48,7 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_power' do
       expect {
         expect { |n, i|
           prefix_avg(numbers[i])
-        }.not_to perform_power.within(range[0], range[-1]).sample(100).times
+        }.not_to perform_power.in_range(range[0], range[-1]).sample(100).times
       }.to raise_error("expected block not to perform power, but performed power")
     end
   end

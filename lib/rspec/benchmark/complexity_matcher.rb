@@ -12,8 +12,10 @@ module RSpec
         def initialize(fit_type, **options)
           @fit_type  = fit_type
           @threshold = options.fetch(:threshold) { 0.9 }
-          @range     = ::Benchmark::Trend.range(8, 8 << 10)
-          @repeat    = 1
+          @repeat    = options.fetch(:repeat) { 1 }
+          @start     = 8
+          @limit     = 8 << 10
+          @ratio     = 8
         end
 
         # Indicates this matcher matches against a block
@@ -33,13 +35,19 @@ module RSpec
         #
         # @api private
         def matches?(block)
-          @trend, trends = ::Benchmark::Trend.infer_trend(@range, repeat: @repeat, &block)
+          range = ::Benchmark::Trend.range(@start, @limit, ratio: @ratio)
+          @trend, trends = ::Benchmark::Trend.infer_trend(range, repeat: @repeat, &block)
 
           @trend == @fit_type
         end
 
-        def within(start, limit, ratio: 8)
-          @range = ::Benchmark::Trend.range(start, limit, ratio: ratio)
+        def in_range(start, limit)
+          @start, @limit = start, limit
+          self
+        end
+
+        def ratio(ratio)
+          @ratio = ratio
           self
         end
 
