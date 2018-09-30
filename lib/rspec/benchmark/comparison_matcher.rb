@@ -55,6 +55,28 @@ module RSpec
           end
         end
 
+        # The time before measurements are taken
+        #
+        # @param [Numeric] value
+        #   the time before measurements are taken
+        #
+        # @api public
+        def warmup(value)
+          @warmup = value
+          self
+        end
+
+        # Time to measure iteration for
+        #
+        # @param [Numeric] value
+        #   the time to take measurements for
+        #
+        # @api public
+        def within(value)
+          @time = value
+          self
+        end
+
         # Specify the minimum number of times a block
         # is faster/slower than other.
         # @api public
