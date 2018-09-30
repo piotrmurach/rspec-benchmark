@@ -47,6 +47,23 @@ module RSpec
           !matches?(block) && block.is_a?(Proc)
         end
 
+        # The time before measurements are taken
+        #
+        # @param [Numeric] value
+        #   the time before measurements are taken
+        #
+        # @api public
+        def warmup(value)
+          @warmup = value
+          self
+        end
+
+        # How many times to repeat measurement
+        #
+        # @param [Integer] samples
+        #   the number of times to repeat the measurement
+        #
+        # @api public
         def sample(samples)
           @samples = samples
           self
