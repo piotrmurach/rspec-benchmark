@@ -16,7 +16,7 @@
 
 > Performance testing matchers for RSpec
 
-**RSpec::Benchmark** uses [benchmark-perf](https://github.com/piotrmurach/benchmark-perf) for measurements and [benchmark-trend](https://github.com/piotrmurach/benchmark-trend) for asymptotic behaviour calculations.
+**RSpec::Benchmark** uses [benchmark-perf](https://github.com/piotrmurach/benchmark-perf) for measuring execution time and iterations per second and [benchmark-trend](https://github.com/piotrmurach/benchmark-trend) for asymptotic behaviour estimation.
 
 ## Why?
 
@@ -63,7 +63,14 @@ RSpec.configure do |config|
 end
 ```
 
-This will add the `perform_under`, `perform_at_least`, `perform_faster_than`, `perform_slower_than`, `perform_constant`, `perform_linear`, `perform_logarithmic`, `perform_power` and `perform_exponential` matchers to express expected performance benchmark for code executed inside the expectation.
+This will add the following matchers:
+
+* `perform_under` to see how fast your code runs
+* `perform_at_least` to see how many iteration per second your code can do
+* `perform_faster_than`, `perform_slower_than` to compare implementations
+* `perform_(constant|linear|logarithmic|power|expoentatil)` to see how your code scales with time
+
+that will help you express expected performance benchmark for an evaluted code.
 
 Alternatively, you can add matchers for particular example:
 
