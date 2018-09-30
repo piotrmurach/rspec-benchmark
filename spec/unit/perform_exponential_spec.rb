@@ -14,20 +14,15 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_exponential' do
 
   context "expect { ... }.to perfom_exponential" do
     it "passes if the block performs exponential" do
-      expect { |n|
+      expect { |n, i|
         fibonacci(n)
       }.to perform_exponential.within(1, 15, ratio: 2).sample(100)
     end
 
     it "fails if the block doesn't perform exponential" do
-      range = bench_range(1, 100_000)
-      numbers = range.map { |n| Array.new(n) { rand(n) } }.each
-
       expect {
-        expect { |n|
-          numbers.next.max
-        }.to perform_exponential.within(range[0], range[-1])
-      }.to raise_error("expected block to perform exponential, but performed linear")
+        expect { |n| n }.to perform_exponential.within(1, 10_000).sample(100)
+      }.to raise_error("expected block to perform exponential, but performed constant")
     end
   end
 
