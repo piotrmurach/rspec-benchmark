@@ -67,8 +67,8 @@ This will add the following matchers:
 
 * `perform_under` to see how fast your code runs
 * `perform_at_least` to see how many iteration per second your code can do
-* `perform_faster_than`, `perform_slower_than` to compare implementations
-* `perform_(constant|linear|logarithmic|power|expoentatil)` to see how your code scales with time
+* `perform_(faster|slower)_than` to compare implementations
+* `perform_(constant|linear|logarithmic|power|exponential)` to see how your code scales with time
 
 that will help you express expected performance benchmark for an evaluted code.
 
@@ -170,13 +170,13 @@ expect { ... }.to perform_slower_than { ... }.exactly(5).times
 
 The `times` part is also optional.
 
-The performance timining of each matcher can be tweaked using the `:time` and `:warmup` parameters. These are expressed as seconds. By default `:time` is set to `0.2` and `:warmup` to `0.1` respectively. To change parameters do:
+The performance timining of each matcher can be tweaked using the `within` and `warmup` matchers. These are expressed as seconds. By default `within` matcher is set to `0.2` and `warmup` matcher to `0.1` second respectively. To change these matchers values do:
 
 ```ruby
-expect { ... }.to perform_faster_than(time: 0.4, warmup: 0.2) { ... }
+expect { ... }.to perform_faster_than.within(0.4).warmup(0.2) { ... }
 ```
 
-The higher values for `:time` and `:warmup` the more accurate average readings and hence more stable tests at the cost of longer test suite overall time.
+The higher values for `within` and `warmup` the more accurate average readings and more stable tests at the cost of longer test suite overall runtime.
 
 ### 1.4 Complexity
 
