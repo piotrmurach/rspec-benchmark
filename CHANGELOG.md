@@ -1,11 +1,14 @@
 # Change log
 
-## [v0.4.0] - 2018-09-xx
+## [v0.4.0] - 2018-10-01
 
 ### Added
 * Add benchmark-trend as a dependency
 * Add ComplexityMatcher with #perform_linear, #perform_constant,
   #perform_logarithmic, #perform_power and #perform_exponential expectations
+* Add #within and #warmup matchers to IterationMatcher
+* Add #warmup matcher to TimingMatcher
+* Add #within and #warmup matchers to ComparisonMatcher
 
 ### Changed
 * Change to require Ruby >= 2.0.0
