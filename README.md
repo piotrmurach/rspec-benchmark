@@ -133,7 +133,7 @@ expect { ... }.to perform_at_least(10000).ips
 
 The `ips` part is optional but its usage clarifies the intent.
 
-The performance timining of this matcher can be tweaked using the `within` and `warmup` matchers. These are expressed as seconds.
+The performance timing of this matcher can be tweaked using the `within` and `warmup` matchers. These are expressed as seconds.
 
 By default `within` matcher is set to `0.2` second and `warmup` matcher to `0.1` respectively. To change how long measurements are taken, for example, to double the time amount do:
 
