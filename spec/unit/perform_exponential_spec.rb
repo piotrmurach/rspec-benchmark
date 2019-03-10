@@ -16,7 +16,7 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_exponential' do
     it "passes if the block performs exponential" do
       expect { |n, i|
         fibonacci(n)
-      }.to perform_exponential.in_range(1, 15).ratio(2).sample(100)
+      }.to perform_exp.in_range(1, 15).ratio(2).sample(100)
     end
 
     it "fails if the block doesn't perform exponential" do

@@ -20,7 +20,7 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_logarithmic' do
 
       expect { |n, i|
         numbers[i].bsearch { |x| x == 1 }
-      }.to perform_logarithmic.in_range(range[0], range[-1]).ratio(2).sample(100).times
+      }.to perform_log.in_range(range[0], range[-1]).ratio(2).sample(100).times
     end
 
     it "fails if the block doesn't perform logarithmic" do
@@ -42,7 +42,7 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_logarithmic' do
       expect {
         expect { |n, i|
           numbers[i].bsearch { |x| x == 1 }
-        }.not_to perform_logarithmic.in_range(range[0], range[-1]).ratio(2).sample(100).times
+        }.not_to perform_log.in_range(range[0], range[-1]).ratio(2).sample(100).times
       }.to raise_error("expected block not to perform logarithmic, but performed logarithmic")
     end
   end

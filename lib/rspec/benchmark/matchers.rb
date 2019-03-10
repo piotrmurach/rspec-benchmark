@@ -101,6 +101,7 @@ module RSpec
       def perform_logarithmic(**options)
         ComplexityMatcher::Matcher.new(:logarithmic, options)
       end
+      alias perform_log perform_logarithmic
 
       # Pass if code block performs linear
       #
@@ -137,6 +138,7 @@ module RSpec
       def perform_exponential(**options)
         ComplexityMatcher::Matcher.new(:exponential, options)
       end
+      alias perform_exp perform_exponential
 
       # Generate a geometric progression of inputs
       #
