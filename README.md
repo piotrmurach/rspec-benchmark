@@ -70,7 +70,7 @@ This will add the following matchers:
 * `perform_(faster|slower)_than` to compare implementations
 * `perform_(constant|linear|logarithmic|power|exponential)` to see how your code scales with time
 
-that will help you express expected performance benchmark for an evaluted code.
+These will help you express expected performance benchmark for an evaluated code.
 
 Alternatively, you can add matchers for particular example:
 
@@ -90,7 +90,7 @@ expect {
 
 ### 1.1 Timing
 
-The `perform_under` matcher answers the question of how long does it take to perform a given block of code on average. The measurements are taken executing the block of code in a child process for accurent cpu times.
+The `perform_under` matcher answers the question of how long does it take to perform a given block of code on average. The measurements are taken executing the block of code in a child process for accurate CPU times.
 
 ```ruby
 expect { ... }.to perform_under(0.01).sec
@@ -103,7 +103,7 @@ expect { ... }.to perform_under(10).ms
 expect { ... }.to perform_under(10000).us
 ```
 
-by default the above code will be sampled only once but you can change this by using the `sample` matcher like so:
+By default the above code will be sampled only once but you can change this by using the `sample` matcher like so:
 
 ```ruby
 expect { ... }.to perform_under(0.01).sample(10) # repeats measurements 10 times
@@ -170,7 +170,7 @@ expect { ... }.to perform_slower_than { ... }.exactly(5).times
 
 The `times` part is also optional.
 
-The performance timining of each matcher can be tweaked using the `within` and `warmup` matchers. These are expressed as seconds. By default `within` matcher is set to `0.2` and `warmup` matcher to `0.1` second respectively. To change these matchers values do:
+The performance timing of each matcher can be tweaked using the `within` and `warmup` matchers. These are expressed as seconds. By default `within` matcher is set to `0.2` and `warmup` matcher to `0.1` second respectively. To change these matchers values do:
 
 ```ruby
 expect { ... }.to perform_faster_than.within(0.4).warmup(0.2) { ... }
@@ -180,17 +180,17 @@ The higher values for `within` and `warmup` the more accurate average readings a
 
 ### 1.4 Complexity
 
-The `perform_constant`, `perform_linear`, `perform_logarithmic`, `perform_power` and `perform_exponential` matchers are useful for estimating the asymptotic behaviour of a given block of code. The most basic way to use the expectations to test how your code scales is to use the matchers:
+The `perform_constant`, `perform_logarithmic`, `perform_linear`, `perform_power` and `perform_exponential` matchers are useful for estimating the asymptotic behaviour of a given block of code. The most basic way to use the expectations to test how your code scales is to use the matchers:
 
 ```ruby
 expect { ... }.to perform_constant
+expect { ... }.to perform_logarithmic/perform_log
 expect { ... }.to perform_linear
-expect { ... }.to perform_logarithmic
 expect { ... }.to perform_power
-expect { ... }.to perform_exponential
+expect { ... }.to perform_exponential/perform_exp
 ```
 
-However, for the matchers to be of any use you will need to provide the range of inputs on which they will perform measurements using `in_range` matcher. Each range input together with its corresponding iteration index will be yielded as arguments to the evaluted block.
+However, for the matchers to be of any use you will need to provide the range of inputs on which they will perform measurements using `in_range` matcher. Each range input together with its corresponding iteration index will be yielded as arguments to the evaluated block.
 
 For example, to create a power range of inputs from `8` to `100_000` do:
 
@@ -220,7 +220,7 @@ expect { |n, i|
 
 ## 2. Compounding
 
-All the matchers can be used in compound expressions via `and/or`. For example, if you wish to check if a computation performs under certain time boundry and iterates at least a given number do:
+All the matchers can be used in compound expressions via `and/or`. For example, if you wish to check if a computation performs under certain time boundary and iterates at least a given number do:
 
 ```ruby
 expect {
@@ -240,7 +240,7 @@ RSpec.config do |config|
 end
 ```
 
-and then in your example group do:
+And then in your example group do:
 
 ```ruby
 RSpec.describe ..., :perf do
@@ -277,4 +277,4 @@ If you have any other observations please share them!
 
 ## Copyright
 
-Copyright (c) 2016-2018 Piotr Murach. See LICENSE for further details.
+Copyright (c) 2016 Piotr Murach. See LICENSE for further details.
