@@ -11,9 +11,10 @@ ActiveRecord::Schema.define do
   self.verbose = true
 
   create_table(:posts, force: true) do |t|
-    t.string   :title,       null: false
-    t.datetime :created_at,  null: false
-    t.datetime :updated_at,  null: false
+    t.string :title, null: false
+    t.string :body
+
+    t.timestamps
   end
 end
 
@@ -30,7 +31,9 @@ RSpec.describe Post do
   let!(:post) { Post.create(title: 'Foo Bar') }
 
   it 'finds records quickly' do
-    expect { Post.find(post.id) }.to perform_under(50).ms.sample(10).times
+    ActiveRecord::Base.transaction do
+      expect { Post.find(post.id) }.to perform_under(50).ms.sample(10).times
+    end
   end
 
   it 'finds posts that exist' do
