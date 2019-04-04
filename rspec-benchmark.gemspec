@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.name          = "rspec-benchmark"
   spec.version       = RSpec::Benchmark::VERSION
   spec.authors       = ["Piotr Murach"]
-  spec.email         = [""]
+  spec.email         = ["me@piotrmurach.com"]
   spec.summary       = %q{Performance testing matchers for RSpec}
   spec.description   = %q{Performance testing matchers for RSpec that provide simple way to specify speed and algorithmic complexity benchmark expectations}
   spec.homepage      = ""
@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.0.0'
 
-  spec.add_dependency 'benchmark-perf', '~> 0.4.0'
+  # spec.add_dependency 'benchmark-perf', '~> 0.4.0'
   spec.add_dependency 'benchmark-trend', '~> 0.2.0'
   spec.add_dependency 'rspec', '>= 3.0.0', '< 4.0.0'
 
