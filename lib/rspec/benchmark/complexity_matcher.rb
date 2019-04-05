@@ -37,12 +37,18 @@ module RSpec
         def matches?(block)
           range = ::Benchmark::Trend.range(@start, @limit, ratio: @ratio)
           @trend, trends = ::Benchmark::Trend.infer_trend(range, repeat: @repeat, &block)
+          threshold = trends[@trend][:residual]
 
-          @trend == @fit_type
+          @trend == @fit_type && threshold >= @threshold
         end
 
         def in_range(start, limit)
           @start, @limit = start, limit
+          self
+        end
+
+        def threshold(threshold)
+          @threshold = threshold
           self
         end
 

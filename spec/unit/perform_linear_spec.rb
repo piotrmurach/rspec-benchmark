@@ -14,8 +14,9 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_linear' do
 
   it "provides a default range" do
     range = [1,2,3]
+    trend = [:linear, {linear: {residual: 0.95}}]
     allow(::Benchmark::Trend).to receive(:range).and_return(range)
-    allow(::Benchmark::Trend).to receive(:infer_trend).and_return(:linear, {})
+    allow(::Benchmark::Trend).to receive(:infer_trend).and_return(trend)
 
     expect { |n, i| n }.to perform_linear
 
@@ -24,8 +25,9 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_linear' do
 
   it "changes default range using in_range and ratio matchers" do
     range = [1,2,3]
+    trend = [:linear, {linear: {residual: 0.95}}]
     allow(::Benchmark::Trend).to receive(:range).and_return(range)
-    allow(::Benchmark::Trend).to receive(:infer_trend).and_return(:linear, {})
+    allow(::Benchmark::Trend).to receive(:infer_trend).and_return(trend)
 
     expect { |n, i| n }.to perform_linear.in_range(3, 33_000).ratio(2)
 
@@ -39,7 +41,7 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_linear' do
 
       expect { |n, i|
         numbers[i].max
-      }.to perform_linear.in_range(range[0], range[-1]).sample(100)
+      }.to perform_linear.in_range(range[0], range[-1]).sample(100).threshold(0.85)
     end
 
     it "fails if the block doesn't perform linear" do
