@@ -31,6 +31,7 @@ If you are new to performance testing you may find [Caveats](#4-caveats) section
   * [1.2 Iterations ](#12-iterations)
   * [1.3 Comparison ](#13-comparison)
   * [1.4 Complexity](#14-complexity)
+  * [1.5 Allocation](#15-allocation)
 * [2. Compounding](#2-compounding)
 * [3. Filtering](#3-filtering)
 * [4. Caveats](#4-caveats)
@@ -216,6 +217,46 @@ The performance of code block is measured only once per range input. You can cha
 expect { |n, i|
   ...
 }.to perform_linear.in_range(8, 100_000).ratio(2).sample(100).times
+```
+
+### 1.5 Allocation
+
+The `perform_allocation` matcher checks how much memory or objects have been allocated during a piece of Ruby code execution.
+
+By default the matcher verify the number of object allocations. You can also check for memory allocation using the `bytes` matcher.
+
+To check number of objects allocated do:
+
+```ruby
+expect {
+  ["foo", "bar", "baz"].sort[1]
+}.to perform_allocation(3)
+```
+
+You can also be more granular with your object allocations and specify which object types you're interested in:
+
+```ruby
+expect {
+  _a = [Object.new]
+  _b = {Object.new => 'foo'}
+}.to perform_allocation({Array => 1, Object => 2}).objects
+```
+
+And you can also check how many objects are left when expectation finishes to ensure that `GC` is able to collect them.
+
+```ruby
+expect {
+  ["foo", "bar", "baz"].sort[1]
+}.to perform_allocation(3).and_retain(3)
+```
+
+You can also set expectations on the memory size. In this case the memory size will serve as upper limit for the expectation:
+
+```ruby
+expect {
+  _a = [Object.new]
+  _b = {Object.new => 'foo'}
+}.to perform_allocation({Array => 40, Hash => 384, Object => 80}).bytes
 ```
 
 ## 2. Compounding
