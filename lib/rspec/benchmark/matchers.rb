@@ -1,5 +1,6 @@
 # frozen_string_literal
 
+require_relative 'allocation_matcher'
 require_relative 'comparison_matcher'
 require_relative 'complexity_matcher'
 require_relative 'iteration_matcher'
@@ -24,6 +25,19 @@ module RSpec
     #
     # @api public
     module Matchers
+      # Passes if code block performs at least iterations
+      #
+      # @param [Integer] iterations
+      #
+      # @example
+      #   expect { ... }.to perform_allocation(10000)
+      #   expect { ... }.to perform_allocation(10000)
+      #
+      # @api public
+      def perform_allocation(objects, **options)
+        AllocationMatcher::Matcher.new(objects, options)
+      end
+
       # Passes if code block performs at least iterations
       #
       # @param [Integer] iterations
