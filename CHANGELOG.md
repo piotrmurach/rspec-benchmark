@@ -1,5 +1,16 @@
 # Change log
 
+## [v0.5.0] - 2019-04-06
+
+## Added
+* Add benchmark-malloc as a dependency
+* Add AllocationMatcher with  #perform_allocation expectation
+* Add #perform_log, #perform_exp aliases
+* Add ability to configure error threshold when asserting computational complexity
+
+## Changed
+* Change CompexityMatcher to use threshold when verifying the assertion
+
 ## [v0.4.0] - 2018-10-01
 
 ### Added
@@ -34,6 +45,7 @@
 
 Initial release
 
+[v0.5.0]: https://github.com/peter-murach/rspec-benchmark/compare/v0.4.0...v0.5.0
 [v0.4.0]: https://github.com/peter-murach/rspec-benchmark/compare/v0.3.0...v0.4.0
 [v0.3.0]: https://github.com/peter-murach/rspec-benchmark/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/peter-murach/rspec-benchmark/compare/v0.1.0...v0.2.0
