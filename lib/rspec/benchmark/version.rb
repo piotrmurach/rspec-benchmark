@@ -2,6 +2,6 @@
 
 module RSpec
   module Benchmark
-    VERSION = "0.4.0"
+    VERSION = "0.5.0"
   end # Benchmark
 end # RSpec
