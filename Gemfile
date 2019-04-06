@@ -5,7 +5,7 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 gemspec
 
 gem 'benchmark-perf', github: 'piotrmurach/benchmark-perf'
-gem 'benchmark-malloc', github: 'piotrmurach/benchmark-malloc'
+# gem 'benchmark-malloc', github: 'piotrmurach/benchmark-malloc'
 
 gem 'activerecord'
 gem 'sqlite3'
