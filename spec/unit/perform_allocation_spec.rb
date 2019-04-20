@@ -4,14 +4,14 @@ RSpec.describe "#perform_allocation" do
   context "expect { ... }.to perform_allocation(...)" do
     it "passes if the block performs allocations" do
       expect {
-        ["foo", "bar", "baz"].sort[1]
-      }.to perform_allocation(6)
+        _a = [Object.new]
+      }.to perform_allocation(2)
     end
 
     it "fails if the block doesn't perform allocation(...)" do
       expect {
         expect {
-          ["foo", "bar", "baz"].sort[1]
+          _a = [Object.new]
         }.to perform_allocation(1)
       }.to raise_error(/expected block to perform allocation of \d object, but allocated \d objects/)
     end
@@ -97,8 +97,8 @@ RSpec.describe "#perform_allocation" do
       expect {
         expect {
           ["foo", "bar", "baz"].sort[1]
-        }.to_not perform_allocation(120).bytes
-      }.to raise_error("expected block not to perform allocation of 120 bytes, but allocated 120 bytes")
+        }.to_not perform_allocation(200).bytes
+      }.to raise_error(/expected block not to perform allocation of \d{3} bytes, but allocated \d{3} bytes/)
     end
   end
 
