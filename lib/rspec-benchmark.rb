@@ -1,1 +1,1 @@
-require 'rspec/benchmark'
+require_relative 'rspec/benchmark'
