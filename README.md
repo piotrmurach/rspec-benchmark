@@ -16,7 +16,10 @@
 
 > Performance testing matchers for RSpec
 
-**RSpec::Benchmark** uses [benchmark-perf](https://github.com/piotrmurach/benchmark-perf) for measuring execution time and iterations per second and [benchmark-trend](https://github.com/piotrmurach/benchmark-trend) for asymptotic behaviour estimation.
+**RSpec::Benchmark** is powered by:
+* [benchmark-perf](https://github.com/piotrmurach/benchmark-perf) for measuring execution time and iterations per second.
+* [benchmark-trend](https://github.com/piotrmurach/benchmark-trend) for estimating computation complexity.
+* [benchmark-malloc](https://github.com/piotrmurach/benchmark-malloc) for measuring object and memory allocations.
 
 ## Why?
 
@@ -191,32 +194,69 @@ expect { ... }.to perform_power
 expect { ... }.to perform_exponential/perform_exp
 ```
 
-However, for the matchers to be of any use you will need to provide the range of inputs on which they will perform measurements using `in_range` matcher. Each range input together with its corresponding iteration index will be yielded as arguments to the evaluated block.
+To test performance in terms of computation complexity you can follow the algorithm:
+
+1. Choose a method to profile.
+2. Choose workloads for the method.
+3. Describe workloads with input features.
+4. Assert the performance in terms of Big-O notation.
+
+Often, before expectation can be set you need to setup some workloads. To create a range of inputs use the `bench_range` helper method.
 
 For example, to create a power range of inputs from `8` to `100_000` do:
 
 ```ruby
+sizes = bench_range(8, 100_000) # => [8, 64, 512, 4096, 32768, 100000]
+```
+
+Then you can use the sizes to create test data, for example to check Ruby's `max` performance create array of number arrays.
+
+```ruby
+number_arrays = sizes.map { |n| Array.new(n) { rand(n) } }
+```
+
+Using `in_range` matcher you can inform the expectation about the inputs. Each range value together with its index will be yielded as arguments to the evaluated block.
+
+You can either specify the range limits:
+
+```ruby
 expect { |n, i|
-  ...
+  number_arrays[i].max
 }.to perform_linear.in_range(8, 100_000)
+```
+
+Or use previously generated `sizes` array:
+
+```ruby
+expect { |n, i|
+  number_arrays[i].max
+}.to perform_linear.in_range(sizes)
 ```
 
 This example will generate and yield input `n` and index `i` pairs `[8, 0]`, `[64, 1]`, `[512, 2]`, `[4K, 3]`, `[32K, 4]` and `[100K, 5]` respectively.
 
-By default the range will be generated using ratio of 8. You can change this using `ratio` matcher:
+By default the range will be generated using ratio of `8`. You can change this using `ratio` matcher:
 
 ```ruby
 expect { |n, i|
-  ...
+  number_arrays[i].max
 }.to perform_linear.in_range(8, 100_000).ratio(2)
 ```
 
-The performance of code block is measured only once per range input. You can change this value and in doing so increase stability of your performance test using the `sample` matcher. For example, to repeat measurements 100 times for each range data input do:
+The performance measurements for a code block are taken only once per range input. You can increase the stability of your performance test by using the `sample` matcher. For example, to repeat measurements 100 times for each range input do:
 
 ```ruby
 expect { |n, i|
-  ...
+  number_arrays[i].max
 }.to perform_linear.in_range(8, 100_000).ratio(2).sample(100).times
+```
+
+The overall quality of the performance trend is assessed using a threshold value where `0` means a poor fit and `1` a perfect fit. By default this value is configured to `0.9` as a 'good enough' threshold. To change this use `threshold` matcher:
+
+```ruby
+expect { |n, i|
+  number_arrays[i].max
+}.to perform_linear.in_range(8, 100_000).threshold(0.95)
 ```
 
 ### 1.5 Allocation
