@@ -34,6 +34,12 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_linear' do
     expect(::Benchmark::Trend).to have_received(:range).with(3, 33_000, ratio: 2)
   end
 
+  it "fails when wrong argument for range" do
+    expect {
+      expect { |n, i| }.to perform_linear.in_range(1..10)
+    }.to raise_error(ArgumentError, "Wrong range argument '1..10', it expects an array or numeric start value.")
+  end
+
   context "expect { ... }.to perfom_linear" do
     it "passes if the block performs linear" do
       range = bench_range(1, 8 << 10)
@@ -41,7 +47,7 @@ RSpec.describe 'RSpec::Benchmark::ComplexityMatcher', '#perform_linear' do
 
       expect { |n, i|
         numbers[i].max
-      }.to perform_linear.in_range(range[0], range[-1]).sample(100).threshold(0.85)
+      }.to perform_linear.in_range(range).sample(100).threshold(0.85)
     end
 
     it "fails if the block doesn't perform linear" do

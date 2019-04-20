@@ -42,8 +42,20 @@ module RSpec
           @trend == @fit_type && threshold >= @threshold
         end
 
-        def in_range(start, limit)
-          @start, @limit = start, limit
+        # Specify range of inputs
+        #
+        # @api public
+        def in_range(start, limit = (not_set = true))
+          case start
+          when Array
+            @start, *, @limit = *start
+            @ratio = start[1] / start[0]
+          when Numeric
+            @start, @limit = start, limit
+          else
+            raise ArgumentError,
+                "Wrong range argument '#{start}', it expects an array or numeric start value."
+          end
           self
         end
 
