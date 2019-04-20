@@ -27,8 +27,8 @@ RSpec.describe "#perform_allocation" do
     it "fails if the block performs allocation" do
       expect {
         expect {
-          ["foo", "bar", "baz"].sort[1]
-        }.to_not perform_allocation(3)
+          _a = [Object.new]
+        }.to_not perform_allocation(2)
       }.to raise_error(/expected block not to perform allocation of \d objects, but allocated \d objects/)
     end
   end
@@ -82,7 +82,7 @@ RSpec.describe "#perform_allocation" do
         expect {
           ["foo", "bar", "baz"].sort[1]
         }.to perform_allocation(100).bytes
-      }.to raise_error(/expected block to perform allocation of \d{3} bytes, but allocated \d{3} bytes/)
+      }.to raise_error(/expected block to perform allocation of \d+ bytes, but allocated \d+ bytes/)
     end
   end
 
@@ -96,9 +96,9 @@ RSpec.describe "#perform_allocation" do
     it "fails if the block performs allocation" do
       expect {
         expect {
-          ["foo", "bar", "baz"].sort[1]
+          _a = [Object.new]
         }.to_not perform_allocation(200).bytes
-      }.to raise_error(/expected block not to perform allocation of \d{3} bytes, but allocated \d{3} bytes/)
+      }.to raise_error(/expected block not to perform allocation of \d+ bytes, but allocated \d+ bytes/)
     end
   end
 
