@@ -115,7 +115,7 @@ RSpec.describe "#perform_allocation" do
         expect {
           _a = [Object.new]
           _b = {Object.new => 'bar'}
-        }.to perform_allocation({Object => 80, Hash => 200}).bytes
+        }.to perform_allocation({Object => 80, Hash => 0}).bytes
       }.to raise_error(/expected block to perform allocation of \d+ Hash and \d+ Object bytes, but allocated \d+ Hash and \d+ Object bytes/)
     end
   end
