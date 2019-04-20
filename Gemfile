@@ -7,9 +7,11 @@ gemspec
 gem 'benchmark-perf', github: 'piotrmurach/benchmark-perf'
 # gem 'benchmark-malloc', github: 'piotrmurach/benchmark-malloc'
 
-gem 'activerecord'
-gem 'sqlite3'
-gem 'fast_jsonapi'
+group :examples do
+  gem 'activerecord'
+  gem 'sqlite3'
+  gem 'fast_jsonapi'
+end
 
 group :test do
   gem 'coveralls', '~> 0.8.22'
