@@ -1,6 +1,6 @@
 # Change log
 
-## [v0.5.0] - 2019-04-06
+## [v0.5.0] - 2019-04-xx
 
 ## Added
 * Add benchmark-malloc as a dependency
@@ -9,7 +9,8 @@
 * Add ability to configure error threshold when asserting computational complexity
 
 ## Changed
-* Change CompexityMatcher to use threshold when verifying the assertion
+* Change ComplexityMatcher to use threshold when verifying the assertion
+* Change ComplexityMatcher#in_range to accept full range as an input
 
 ## [v0.4.0] - 2018-10-01
 
