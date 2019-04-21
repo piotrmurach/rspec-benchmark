@@ -26,7 +26,7 @@
 
 Integration and unit tests ensure that changing code maintains expected functionality. What is not guaranteed is the code changes impact on library performance. It is easy to refactor your way out of fast to slow code.
 
-If you are new to performance testing you may find [Caveats](#4-caveats) section helpful.
+If you are new to performance testing you may find [Caveats](#5-caveats) section helpful.
 
 ## Contents
 
@@ -40,6 +40,7 @@ If you are new to performance testing you may find [Caveats](#4-caveats) section
 * [3. Configuration](#3-configuration)
   * [3.1 :disable_gc](#31-disable_gc)
   * [3.2 :run_in_subprocess](#32-run_in_subprocess)
+  * [3.3 :samples](#33-samples)
 * [4. Filtering](#4-filtering)
 * [5. Caveats](#5-caveats)
 
@@ -327,7 +328,7 @@ end
 
 ### 3.1. `:disable_gc`
 
-By default all tests are run with `GC` enabled. We want to measure real performance or Ruby code. However, disabling GC may lead to much quicker test execution. You can change this setting:
+By default all tests are run with `GC` enabled. We want to measure real performance or Ruby code. However, disabling `GC` may lead to much quicker test execution. You can change this setting:
 
 ```ruby
 RSpec::Benchmark.configure do |config|
@@ -337,7 +338,7 @@ end
 
 ### 3.2 `:run_in_subprocess`
 
-The `perform_under` matcher can run all the measurements in the subprocess. This will increase isolation from other processes activity. However, the `rspec-rails` gem runs all tests in transactions. Unfortunately, when running tests in child process, database connections are used from connection pool and no data can be accessed. This only a problem with running specs in Rails. Any other Ruby project can run specs using subprocesses. To enable this behaviour do:
+The `perform_under` matcher can run all the measurements in the subprocess. This will increase isolation from other processes activity. However, the `rspec-rails` gem runs all tests in transactions. Unfortunately, when running tests in child process, database connections are used from connection pool and no data can be accessed. This is only a problem when running specs in Rails. Any other Ruby project can run specs using subprocesses. To enable this behaviour do:
 
 ```ruby
 RSpec::Benchmark.configure do |config|
@@ -345,7 +346,17 @@ RSpec::Benchmark.configure do |config|
 end
 ```
 
-## 3. Filtering
+### 3.3 `:samples`
+
+The `perform_under` and computational complexity matchers allow to specify how many times to repeat measurements. You configure it globally for all matchers using the `:samples` option which defaults to `1`:
+
+```ruby
+RSpec::Benchmark.configure do |config|
+  config.samples = 10
+end
+```
+
+## 4. Filtering
 
 Usually performance tests are best left for CI or occasional runs that do not affect TDD/BDD cycle.
 
@@ -373,7 +384,7 @@ rspec --tag perf
 
 Another option is to simply isolate the performance specs in separate directory such as `spec/performance/...` and add custom rake task to run them.
 
-## 4. Caveats
+## 5. Caveats
 
 When writing performance tests things to be mindful are:
 
