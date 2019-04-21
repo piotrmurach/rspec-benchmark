@@ -37,8 +37,11 @@ If you are new to performance testing you may find [Caveats](#4-caveats) section
   * [1.4 Complexity](#14-complexity)
   * [1.5 Allocation](#15-allocation)
 * [2. Compounding](#2-compounding)
-* [3. Filtering](#3-filtering)
-* [4. Caveats](#4-caveats)
+* [3. Configuration](#3-configuration)
+  * [3.1 :disable_gc](#31-disable_gc)
+  * [3.2 :run_in_subprocess](#32-run_in_subprocess)
+* [4. Filtering](#4-filtering)
+* [5. Caveats](#5-caveats)
 
 ## Installation
 
@@ -74,6 +77,7 @@ This will add the following matchers:
 * `perform_at_least` to see how many iteration per second your code can do
 * `perform_(faster|slower)_than` to compare implementations
 * `perform_(constant|linear|logarithmic|power|exponential)` to see how your code scales with time
+* `perform_allocation` to limit object and memory allocations
 
 These will help you express expected performance benchmark for an evaluated code.
 
@@ -308,6 +312,37 @@ All the matchers can be used in compound expressions via `and/or`. For example, 
 expect {
   ...
 }.to perform_under(6).ms and perform_at_least(10000).ips
+```
+
+## 3. Configuration
+
+By default the following configuration is used:
+
+```ruby
+RSpec::Benchmark.configure do |config|
+  config.run_in_subprocess = false
+  config.disable_gc = false
+end
+```
+
+### 3.1. `:disable_gc`
+
+By default all tests are run with `GC` enabled. We want to measure real performance or Ruby code. However, disabling GC may lead to much quicker test execution. You can change this setting:
+
+```ruby
+RSpec::Benchmark.configure do |config|
+  config.disable_gc = true
+end
+```
+
+### 3.2 `:run_in_subprocess`
+
+The `perform_under` matcher can run all the measurements in the subprocess. This will increase isolation from other processes activity. However, the `rspec-rails` gem runs all tests in transactions. Unfortunately, when running tests in child process, database connections are used from connection pool and no data can be accessed. This only a problem with running specs in Rails. Any other Ruby project can run specs using subprocesses. To enable this behaviour do:
+
+```ruby
+RSpec::Benchmark.configure do |config|
+  config.run_in_subprocess = true
+end
 ```
 
 ## 3. Filtering
