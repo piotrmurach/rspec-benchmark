@@ -11,8 +11,10 @@ module RSpec
       class Matcher
         def initialize(fit_type, **options)
           @fit_type  = fit_type
-          @threshold = options.fetch(:threshold) { 0.9 }
-          @repeat    = options.fetch(:repeat) { 1 }
+          @threshold = options.fetch(:threshold) {
+                        RSpec::Benchmark.configuration.fit_quality }
+          @repeat    = options.fetch(:repeat) {
+                        RSpec::Benchmark.configuration.samples }
           @start     = 8
           @limit     = 8 << 10
           @ratio     = 8

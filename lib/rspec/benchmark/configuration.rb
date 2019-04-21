@@ -14,9 +14,26 @@ module RSpec
       # @api public
       attr_accessor :disable_gc
 
+      # How many times to repeat measurements
+      #
+      # @return [Integer]
+      #
+      # @api public
+      attr_accessor :samples
+
+      # The fit quality in computational complexity
+      #
+      # @return [Float]
+      #
+      # @api public
+      attr_accessor :fit_quality
+
+      # @api private
       def initialize
+        @disable_gc  = false
+        @samples     = 1
+        @fit_quality = 0.9
         @run_in_subprocess = false
-        @disable_gc = false
       end
     end # Configuration
   end # Benchmark

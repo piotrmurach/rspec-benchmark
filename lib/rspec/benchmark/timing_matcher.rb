@@ -17,11 +17,11 @@ module RSpec
 
         def initialize(threshold, **options)
           @threshold = threshold
-          @samples   = options.fetch(:samples) { 1 }
+          @samples   = options.fetch(:samples) {
+                         RSpec::Benchmark.configuration.samples }
           @warmup    = options.fetch(:warmup) { 1 }
           @subprocess = options.fetch(:subprocess) {
-                          RSpec::Benchmark.configuration.run_in_subprocess
-                        }
+                          RSpec::Benchmark.configuration.run_in_subprocess }
           @scale     = threshold.to_s.split(/\./).last.size
           @block     = nil
           @bench     = ::Benchmark::Perf::ExecutionTime
