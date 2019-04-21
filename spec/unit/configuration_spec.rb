@@ -33,4 +33,18 @@ RSpec.describe RSpec::Benchmark do
     expect(config.run_in_subprocess).to eq(false)
     expect(config.disable_gc).to eq(true)
   end
+
+  it "uses the :run_in_subprocess option in perform_under matcher" do
+    RSpec::Benchmark.configure do |config|
+      config.run_in_subprocess = true
+    end
+
+    bench = [0.005, 0.00001]
+    allow(::Benchmark::Perf::ExecutionTime).to receive(:run).and_return(bench)
+
+    expect { 'x' * 1024 }.to perform_under(0.1)
+
+    expect(::Benchmark::Perf::ExecutionTime).to have_received(:run).with(
+      subprocess: true, warmup: 1, repeat: 1)
+  end
 end

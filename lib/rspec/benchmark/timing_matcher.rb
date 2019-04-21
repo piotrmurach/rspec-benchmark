@@ -19,6 +19,9 @@ module RSpec
           @threshold = threshold
           @samples   = options.fetch(:samples) { 1 }
           @warmup    = options.fetch(:warmup) { 1 }
+          @subprocess = options.fetch(:subprocess) {
+                          RSpec::Benchmark.configuration.run_in_subprocess
+                        }
           @scale     = threshold.to_s.split(/\./).last.size
           @block     = nil
           @bench     = ::Benchmark::Perf::ExecutionTime
@@ -39,7 +42,10 @@ module RSpec
         def matches?(block)
           @block = block
           return false unless block.is_a?(Proc)
-          @average, @stddev = @bench.run(repeat: @samples, warmup: @warmup, &block)
+          @average, @stddev = @bench.run(repeat: @samples,
+                                         warmup: @warmup,
+                                         subprocess: @subprocess,
+                                         &block)
           @average <= @threshold
         end
 
