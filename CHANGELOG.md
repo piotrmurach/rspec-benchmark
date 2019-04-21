@@ -1,14 +1,17 @@
 # Change log
 
-## [v0.5.0] - 2019-04-xx
+## [v0.5.0] - 2019-04-21
 
 ## Added
 * Add benchmark-malloc as a dependency
 * Add AllocationMatcher with  #perform_allocation expectation
 * Add #perform_log, #perform_exp aliases
-* Add ability to configure error threshold when asserting computational complexity
+* Add threshold matcher for specifying allowed error level when asserting computational complexity
+* Add #configure to allow for global configuration of options
+* Add :run_in_subprocess, :disable_gc & :samples configuration options
 
 ## Changed
+* Change to require Ruby >= 2.1.0
 * Change ComplexityMatcher to use threshold when verifying the assertion
 * Change ComplexityMatcher#in_range to accept full range as an input
 
