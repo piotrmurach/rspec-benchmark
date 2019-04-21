@@ -8,9 +8,15 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Piotr Murach"]
   spec.email         = ["me@piotrmurach.com"]
   spec.summary       = %q{Performance testing matchers for RSpec}
-  spec.description   = %q{Performance testing matchers for RSpec that provide simple way to specify speed and algorithmic complexity benchmark expectations}
-  spec.homepage      = ""
+  spec.description   = %q{Performance testing matchers for RSpec to set expectations on speed, resources usage and scalibility.}
+  spec.homepage      = "https://github.com/piotrmurach/rspec-benchmark"
   spec.license       = "MIT"
+
+  if spec.respond_to?(:metadata)
+    spec.metadata["homepage_uri"] = spec.homepage
+    spec.metadata["source_code_uri"] = "https://github.com/piotrmurach/rspec-benchmark"
+    spec.metadata["changelog_uri"] = "https://github.com/piotrmurach/rspec-benchmark/blob/master/CHANGELOG.md"
+  end
 
   spec.files         = Dir['{lib,spec}/**/*.rb']
   spec.files        += Dir['tasks/*', 'rspec-benchmark.gemspec']
