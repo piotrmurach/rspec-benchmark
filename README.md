@@ -17,6 +17,7 @@
 > Performance testing matchers for RSpec
 
 **RSpec::Benchmark** is powered by:
+
 * [benchmark-perf](https://github.com/piotrmurach/benchmark-perf) for measuring execution time and iterations per second.
 * [benchmark-trend](https://github.com/piotrmurach/benchmark-trend) for estimating computation complexity.
 * [benchmark-malloc](https://github.com/piotrmurach/benchmark-malloc) for measuring object and memory allocations.
@@ -355,6 +356,10 @@ If you have any other observations please share them!
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+## Code of Conduct
+
+Everyone interacting in the Strings project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/piotrmurach/rspec-benchmark/blob/master/CODE_OF_CONDUCT.md).
 
 ## Copyright
 
