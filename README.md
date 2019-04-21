@@ -14,7 +14,7 @@
 [coverage]: https://coveralls.io/github/piotrmurach/rspec-benchmark
 [inchpages]: http://inch-ci.org/github/piotrmurach/rspec-benchmark
 
-> Performance testing matchers for RSpec
+> Performance testing matchers for RSpec to set expectations on speed, resources usage and scalability.
 
 **RSpec::Benchmark** is powered by:
 
