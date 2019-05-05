@@ -1,6 +1,5 @@
 ---
 language: ruby
-sudo: false
 before_install: "gem install bundler -v '< 2.0'"
 script: "bundle exec rake ci"
 rvm:
@@ -9,9 +8,9 @@ rvm:
   - 2.3.8
   - 2.4.6
   - 2.5.5
-  - 2.6.2
+  - 2.6.3
   - ruby-head
-  - jruby-9.2.6.0
+  - jruby-9.2.7.0
   - jruby-head
 env:
   global:
@@ -20,7 +19,7 @@ matrix:
   allow_failures:
     - rvm: ruby-head
     - rvm: jruby-head
-    - rvm: jruby-9.2.6.0
+    - rvm: jruby-9.2.7.0
   fast_finish: true
 branches:
   only: master
