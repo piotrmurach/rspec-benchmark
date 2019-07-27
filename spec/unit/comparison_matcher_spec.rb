@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
 
@@ -170,7 +170,15 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
         }.to perform_slower_than { 1 << 1 }.at_least(20).times
       end
 
-      it "fails if the block does performs faster than sample" do
+      it "fails if the block count compared with sample is too high" do
+        expect {
+          expect {
+            'x' * 10 * 1024
+          }.to perform_slower_than { 1 << 1 }.at_least(200).times
+        }.to raise_error(/expected given block to perform slower than comparison block by at_least 200 times, but performed slower by \d+.\d+ time/)
+      end
+
+      it "fails if the block does perform faster than sample" do
         expect {
           expect {
             1 << 1

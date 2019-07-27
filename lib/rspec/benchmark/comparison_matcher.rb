@@ -179,23 +179,27 @@ module RSpec
           @count = convert_count(n)
         end
 
-        # @return [Boolean]
+        # At most comparison
+        #
         # @example
-        #   @actual = 40
-        #   @count = 41
+        #   @ratio = 3
+        #   @count = 4
         #   perform_faster_than { ... }.at_most(@count).times # => true
         #
-        #   @actual = 40
-        #   @count = 41
+        #   @ratio = 3
+        #   @count = 2
         #   perform_faster_than { ... }.at_most(@count).times # => false
         #
-        #   @actual = 1/40
-        #   @count = 41
+        #   @ratio = 1/4
+        #   @count = 5
         #   perform_slower_than { ... }.at_most(@count).times # => true
         #
-        #   @actual = 1/40
-        #   @count = 41
+        #   @ratio = 1/4
+        #   @count = 3
         #   perform_slower_than { ... }.at_most(@count).times # => false
+        #
+        # @return [Boolean]
+        #
         # @api private
         def at_most_comparison
           if @comparison_type == :faster
@@ -209,44 +213,52 @@ module RSpec
         # exactly number of counts.
         #
         # @example
-        #   @actual = 40.1
-        #   @count = 40
+        #   @ratio = 3.5
+        #   @count = 3
         #   perform_faster_than { ... }.exact(@count).times # => true
         #
-        #   @actual = 40.1
-        #   @count = 41
-        #   perform_faster_than { ... }.exact(@count).times # => true
+        #   @ratio = 1/4
+        #   @count = 4
+        #   perform_slower_than { ... }.exact(@count).times # => true
         #
         # @return [Boolean]
         #
         # @api private
         def exact_comparison
-          @count == @ratio.round
+          if @comparison_type == :faster
+            @count == @ratio.round
+          else
+            @count == (1.0 / @ratio).round
+          end
         end
 
-        # @return [Boolean]
+        # At least comparison, meaning more than expected count
+        #
         # @example
-        #   @actual = 41
-        #   @count = 40
+        #   @ratio = 4
+        #   @count = 3
         #   perform_faster_than { ... } # => true
         #
-        #   @actual = 41
-        #   @count = 40
+        #   @ratio = 4
+        #   @count = 3
         #   perform_faster_than { ... }.at_least(@count).times # => true
         #
-        #   @actual = 1/40
-        #   @count = 41
+        #   @ratio = 1/4
+        #   @count = 3
         #   perform_slower_than { ... }.at_least(@count).times # => false
         #
-        #   @actual = 1/41
-        #   @count = 40
+        #   @ratio = 1/3
+        #   @count = 4
         #   perform_slower_than { ... }.at_least(@count).times # => true
+        #
+        # @return [Boolean]
+        #
         # @api private
         def default_comparison
           if @comparison_type == :faster
-            @ratio / @count > 1
+            @ratio > @count
           else
-            @ratio / @count < 1 / @count.to_f
+            @ratio < (1.0 / @count)
           end
         end
 
