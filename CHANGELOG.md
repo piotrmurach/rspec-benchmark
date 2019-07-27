@@ -1,5 +1,10 @@
 # Change log
 
+## [v0.5.1] - 2019-07-xx
+
+### Fixed
+* Fix perform_slower_than matcher the at_least & exact comparisons
+
 ## [v0.5.0] - 2019-04-21
 
 ## Added
