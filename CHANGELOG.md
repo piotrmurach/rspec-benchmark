@@ -1,6 +1,6 @@
 # Change log
 
-## [v0.5.1] - 2019-07-xx
+## [v0.5.1] - 2019-09-11
 
 ### Fixed
 * Fix perform_slower_than matcher the at_least & exact comparisons
@@ -54,6 +54,7 @@
 
 Initial release
 
+[v0.5.1]: https://github.com/peter-murach/rspec-benchmark/compare/v0.5.0...v0.5.1
 [v0.5.0]: https://github.com/peter-murach/rspec-benchmark/compare/v0.4.0...v0.5.0
 [v0.4.0]: https://github.com/peter-murach/rspec-benchmark/compare/v0.3.0...v0.4.0
 [v0.3.0]: https://github.com/peter-murach/rspec-benchmark/compare/v0.2.0...v0.3.0
