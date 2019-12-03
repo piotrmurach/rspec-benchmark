@@ -269,7 +269,9 @@ expect { |n, i|
 
 The `perform_allocation` matcher checks how much memory or objects have been allocated during a piece of Ruby code execution.
 
-By default the matcher verify the number of object allocations. You can also check for memory allocation using the `bytes` matcher.
+By default the matcher verifies the number of object allocations. The specified number serves as the _upper limit_ of allocations, so your tests won't become brittle as different Ruby versions change internally how many objects are allocated for some operations.
+
+Note that you can also check for memory allocation using the `bytes` matcher.
 
 To check number of objects allocated do:
 
