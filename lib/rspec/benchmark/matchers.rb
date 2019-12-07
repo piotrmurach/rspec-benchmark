@@ -35,7 +35,7 @@ module RSpec
       #
       # @api public
       def perform_allocation(objects, **options)
-        AllocationMatcher::Matcher.new(objects, options)
+        AllocationMatcher::Matcher.new(objects, **options)
       end
 
       # Passes if code block performs at least iterations
@@ -48,7 +48,7 @@ module RSpec
       #
       # @api public
       def perform_at_least(iterations, **options)
-        IterationMatcher::Matcher.new(iterations, options)
+        IterationMatcher::Matcher.new(iterations, **options)
       end
 
       # Passes if code block performs under threshold
@@ -62,7 +62,7 @@ module RSpec
       #
       # @api public
       def perform_under(threshold, **options)
-        TimingMatcher::Matcher.new(threshold, options)
+        TimingMatcher::Matcher.new(threshold, **options)
       end
 
       # Passes if code block performs faster than sample block
@@ -75,7 +75,7 @@ module RSpec
       #
       # @api public
       def perform_faster_than(**options, &sample)
-        ComparisonMatcher::Matcher.new(sample, :faster, options)
+        ComparisonMatcher::Matcher.new(sample, :faster, **options)
       end
 
       # Passes if code block performs slower than sample block
@@ -88,7 +88,7 @@ module RSpec
       #
       # @api public
       def perform_slower_than(**options, &sample)
-        ComparisonMatcher::Matcher.new(sample, :slower, options)
+        ComparisonMatcher::Matcher.new(sample, :slower, **options)
       end
 
       # Pass if code block performs constant
@@ -100,7 +100,7 @@ module RSpec
       #
       # @api public
       def perform_constant(**options)
-        ComplexityMatcher::Matcher.new(:constant, options)
+        ComplexityMatcher::Matcher.new(:constant, **options)
       end
 
       # Pass if code block performs logarithmic
@@ -113,7 +113,7 @@ module RSpec
       #
       # @api public
       def perform_logarithmic(**options)
-        ComplexityMatcher::Matcher.new(:logarithmic, options)
+        ComplexityMatcher::Matcher.new(:logarithmic, **options)
       end
       alias perform_log perform_logarithmic
 
@@ -126,7 +126,7 @@ module RSpec
       #
       # @api public
       def perform_linear(**options)
-        ComplexityMatcher::Matcher.new(:linear, options)
+        ComplexityMatcher::Matcher.new(:linear, **options)
       end
 
       # Pass if code block performs power
@@ -138,7 +138,7 @@ module RSpec
       #
       # @api public
       def perform_power(**options)
-        ComplexityMatcher::Matcher.new(:power, options)
+        ComplexityMatcher::Matcher.new(:power, **options)
       end
 
       # Pass if code block performs exponential
@@ -150,7 +150,7 @@ module RSpec
       #
       # @api public
       def perform_exponential(**options)
-        ComplexityMatcher::Matcher.new(:exponential, options)
+        ComplexityMatcher::Matcher.new(:exponential, **options)
       end
       alias perform_exp perform_exponential
 
