@@ -60,11 +60,11 @@ RSpec.describe RSpec::Benchmark do
     end
 
     bench = [0.005, 0.00001]
-    allow(::Benchmark::Perf::ExecutionTime).to receive(:run).and_return(bench)
+    allow(::Benchmark::Perf).to receive(:cpu).and_return(bench)
 
     expect { 'x' * 1024 }.to perform_under(0.1)
 
-    expect(::Benchmark::Perf::ExecutionTime).to have_received(:run).with(
+    expect(::Benchmark::Perf).to have_received(:cpu).with(
       subprocess: true, warmup: 1, repeat: 10)
   end
 

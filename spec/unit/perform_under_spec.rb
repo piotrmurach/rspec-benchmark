@@ -9,11 +9,11 @@ RSpec.describe 'RSpec::Benchmark::TimingMatcher', '#perform_under' do
 
   it "allows to configure warmup cycles" do
     bench = [0.005, 0.00001]
-    allow(::Benchmark::Perf::ExecutionTime).to receive(:run).and_return(bench)
+    allow(::Benchmark::Perf).to receive(:cpu).and_return(bench)
 
     expect { 'x' * 1024 * 10 }.to perform_under(0.006).sec.warmup(2).times.sample(3)
 
-    expect(::Benchmark::Perf::ExecutionTime).to have_received(:run).with(
+    expect(::Benchmark::Perf).to have_received(:cpu).with(
       subprocess: false, repeat: 3, warmup: 2)
   end
 
