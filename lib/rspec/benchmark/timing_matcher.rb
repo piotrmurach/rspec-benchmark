@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'benchmark-perf'
+require "benchmark-perf"
 
-require_relative 'format_time'
+require_relative "format_time"
 
 module RSpec
   module Benchmark
@@ -18,13 +18,15 @@ module RSpec
         def initialize(threshold, **options)
           @threshold = threshold
           @samples   = options.fetch(:samples) {
-                         RSpec::Benchmark.configuration.samples }
+                         RSpec::Benchmark.configuration.samples
+                       }
           @warmup    = options.fetch(:warmup) { 1 }
           @subprocess = options.fetch(:subprocess) {
-                          RSpec::Benchmark.configuration.run_in_subprocess }
+                          RSpec::Benchmark.configuration.run_in_subprocess
+                        }
           @scale     = threshold.to_s.split(/\./).last.size
           @block     = nil
-          @bench     = ::Benchmark::Perf::ExecutionTime
+          @bench     = ::Benchmark::Perf
         end
 
         # Indicates this matcher matches against a block
@@ -42,10 +44,8 @@ module RSpec
         def matches?(block)
           @block = block
           return false unless block.is_a?(Proc)
-          @average, @stddev = @bench.run(repeat: @samples,
-                                         warmup: @warmup,
-                                         subprocess: @subprocess,
-                                         &block)
+          @average, @stddev = @bench.cpu(repeat: @samples, warmup: @warmup,
+                                         subprocess: @subprocess, &block)
           @average <= @threshold
         end
 
@@ -124,12 +124,12 @@ module RSpec
         end
 
         def positive_failure_reason
-          return 'was not a block' unless @block.is_a?(Proc)
+          return "was not a block" unless @block.is_a?(Proc)
           "performed above #{actual} "
         end
 
         def negative_failure_reason
-          return 'was not a block' unless @block.is_a?(Proc)
+          return "was not a block" unless @block.is_a?(Proc)
           "performed #{actual} under"
         end
       end # Matcher
