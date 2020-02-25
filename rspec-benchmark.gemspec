@@ -10,9 +10,9 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/piotrmurach/rspec-benchmark"
   spec.license       = "MIT"
   if spec.respond_to?(:metadata)
-    spec.metadata["bug_tracker_uri"] = "https://github.com/piotrmurach/rspec-benchmark/issues",
+    spec.metadata["bug_tracker_uri"] = "https://github.com/piotrmurach/rspec-benchmark/issues"
     spec.metadata["changelog_uri"] = "https://github.com/piotrmurach/rspec-benchmark/blob/master/CHANGELOG.md"
-    spec.metadata["documentation_uri"] = "https://www.rubydoc.info/gems/rspec-benchmark",
+    spec.metadata["documentation_uri"] = "https://www.rubydoc.info/gems/rspec-benchmark"
     spec.metadata["homepage_uri"] = spec.homepage
     spec.metadata["source_code_uri"] = "https://github.com/piotrmurach/rspec-benchmark"
   end
