@@ -31,7 +31,7 @@ module RSpec
         # @api private
         def matches?(block)
           @block = block
-          alloc_stats = @bench.run(&block)
+          alloc_stats = @bench.trace(&block)
           @actual = nil
           @actual_retained = nil
 
