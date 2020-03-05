@@ -2,7 +2,7 @@
 
 require "benchmark-perf"
 
-require_relative "format_time"
+require_relative "formatter"
 
 module RSpec
   module Benchmark
@@ -116,11 +116,11 @@ module RSpec
         end
 
         def description
-          "perform under #{format_time(@threshold)}"
+          "perform under #{Formatter.format_time(@threshold)}"
         end
 
         def actual
-          "#{format_time(@average)} (± #{format_time(@stddev)})"
+          "#{Formatter.format_time(@average)} (± #{Formatter.format_time(@stddev)})"
         end
 
         def positive_failure_reason
