@@ -26,6 +26,26 @@ module RSpec
         end
       end
       module_function :format_time
+
+      UNITS = ([""] + %w[k M G T Q]).freeze
+
+      # Format large numbers and replace thousands with a unit
+      # for increased readability
+      #
+      # @param [Numeric] number
+      #   the number to format
+      #
+      # @return [String]
+      #
+      # @api pubic
+      def format_unit(number)
+        scale = (Math.log10(number) / 3).to_i
+        scale = 0 if scale > 5
+        suffix = UNITS[scale]
+
+        "%.3g#{suffix}" % [number.to_f / (1000 ** scale)]
+      end
+      module_function :format_unit
     end
   end # Benchmark
 end # RSpec
