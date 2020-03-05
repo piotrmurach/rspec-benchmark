@@ -13,7 +13,17 @@ module RSpec
           @iterations = iterations
           @time       = options.fetch(:time) { 0.2 }
           @warmup     = options.fetch(:warmup) { 0.1 }
+          @format     = options.fetch(:format) { :human }
           @bench      = ::Benchmark::Perf
+        end
+
+        # Check if human format should be used
+        #
+        # @return [Boolean]
+        #
+        # @api private
+        def human_format?
+          @format == :human
         end
 
         # Indicates this matcher matches against a block
@@ -70,11 +80,13 @@ module RSpec
         end
 
         def description
-          "perform at least #{@iterations} i/s"
+          iters = human_format? ? Formatter.format_unit(@iterations) : @iterations
+          "perform at least #{iters} i/s"
         end
 
         def actual
-          "%d (± %d%%) i/s" % [@average, (@stddev / @average.to_f) * 100]
+          avg = human_format? ? Formatter.format_unit(@average) : @average
+          "%s (± %d%%) i/s" % [avg, (@stddev / @average.to_f) * 100]
         end
 
         def positive_failure_reason
