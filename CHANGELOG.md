@@ -1,5 +1,20 @@
 # Change log
 
+## [v0.6.0] - 2020-03-x
+
+### Added
+* Add Formatter#format_unit for making numbers more readable
+
+### Changed
+* Change TimingMatcher to use new #cpu interface
+* Change IterationMatcher to use new #ips interface
+* Change IterationMatcher to format iterations with units
+* Change gemspec to add metadata, remove test artefacts
+
+### Fixed
+* Fix Ruby 2.7 warnings converting hash into keywowrd arguments
+* Fix IterationMatcher to stop raising FloatDomainError
+
 ## [v0.5.1] - 2019-09-11
 
 ### Fixed
@@ -54,6 +69,7 @@
 
 Initial release
 
+[v0.6.0]: https://github.com/peter-murach/rspec-benchmark/compare/v0.5.1...v0.6.0
 [v0.5.1]: https://github.com/peter-murach/rspec-benchmark/compare/v0.5.0...v0.5.1
 [v0.5.0]: https://github.com/peter-murach/rspec-benchmark/compare/v0.4.0...v0.5.0
 [v0.4.0]: https://github.com/peter-murach/rspec-benchmark/compare/v0.3.0...v0.4.0
