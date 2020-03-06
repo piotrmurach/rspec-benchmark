@@ -23,6 +23,12 @@ RSpec.describe RSpec::Benchmark do
     expect(config.samples).to eq(1)
   end
 
+  it "defaults :format option to :human" do
+    config = RSpec::Benchmark.configuration
+
+    expect(config.format).to eq(:human)
+  end
+
   it "sets :run_in_subprocess option to true" do
     RSpec::Benchmark.configure do |config|
       config.run_in_subprocess = true

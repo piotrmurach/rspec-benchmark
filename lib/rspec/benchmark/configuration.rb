@@ -28,11 +28,19 @@ module RSpec
       # @api public
       attr_accessor :fit_quality
 
+      # The formatting for number of iterations
+      #
+      # @return [String]
+      #
+      # @api public
+      attr_accessor :format
+
       # @api private
       def initialize
         @disable_gc  = false
         @samples     = 1
         @fit_quality = 0.9
+        @format      = :human
         @run_in_subprocess = false
       end
     end # Configuration
