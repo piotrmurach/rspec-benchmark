@@ -5,8 +5,8 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 gemspec
 
 # gem "benchmark-perf", github: "piotrmurach/benchmark-perf"
-gem "benchmark-trend", github: "piotrmurach/benchmark-trend"
-gem "benchmark-malloc", github: "piotrmurach/benchmark-malloc"
+# gem "benchmark-trend", github: "piotrmurach/benchmark-trend"
+# gem "benchmark-malloc", github: "piotrmurach/benchmark-malloc"
 
 group :examples do
   gem "activerecord"
