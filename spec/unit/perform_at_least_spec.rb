@@ -25,7 +25,7 @@ RSpec.describe '#perform_at_least' do
         expect {
           'x' * 1024 * 1024
         }.to perform_at_least(10_000).ips
-      }.to raise_error(/expected block to perform at least 10k i\/s, but performed only \w+ \(± \d+%\) i\/s/)
+      }.to raise_error(/expected block to perform at least 10k i\/s, but performed only \d+?(\.\d+)?\w \(± \d+%\) i\/s/)
     end
   end
 
@@ -39,7 +39,7 @@ RSpec.describe '#perform_at_least' do
     it "fails if the block performs more than 10K ips" do
       expect {
         expect { 'x' * 1024 }.not_to perform_at_least(10_000).ips
-      }.to raise_error(/expected block not to perform at least 10k i\/s, but performed \w+ \(± \d+%\) i\/s/)
+      }.to raise_error(/expected block not to perform at least 10k i\/s, but performed \d+?(\.\d+)?\w \(± \d+%\) i\/s/)
     end
   end
 end
