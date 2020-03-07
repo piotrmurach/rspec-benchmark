@@ -43,7 +43,7 @@ RSpec.describe RSpec::Benchmark::Formatter do
       1234 => "1.23k",
       1_000_000 => "1M",
       1_123_456 => "1.12M",
-      10 ** 9  => "1G",
+      10 ** 9  => "1B",
       10 ** 12 => "1T",
       10 ** 15 => "1Q"
     }.each do |number, prefixed|

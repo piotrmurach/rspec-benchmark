@@ -27,7 +27,7 @@ module RSpec
       end
       module_function :format_time
 
-      UNITS = ([""] + %w[k M G T Q]).freeze
+      UNITS = ([""] + %w[k M B T Q]).freeze
 
       # Format large numbers and replace thousands with a unit
       # for increased readability
