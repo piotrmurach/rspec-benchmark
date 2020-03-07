@@ -3,7 +3,7 @@
 RSpec.describe RSpec::Benchmark::Formatter do
   context "format_time" do
     {
-      1e-10   => "0 ns",
+      1e-10   => "0.1 ns",
       0.42e-6 => "420 ns",
       # us
       3.4e-6  => "3.4 μs",
@@ -25,6 +25,14 @@ RSpec.describe RSpec::Benchmark::Formatter do
       it "#{input} -> #{expected}" do
         expect(described_class.format_time(input)).to eq(expected)
       end
+    end
+
+    it "formats time at 250k i/s" do
+      time = 1e-10
+
+      expect {
+        described_class.format_time(time)
+      }.to perform_at_least(250_000).ips
     end
   end
 

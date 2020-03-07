@@ -22,7 +22,7 @@ module RSpec
         elsif time >= 1e-6
           "%.3g μs" % [time * 1e6]
         else
-          "%.0f ns" % [time * 1e9]
+          "%.3g ns" % [time * 1e9]
         end
       end
       module_function :format_time
