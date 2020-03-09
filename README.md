@@ -41,6 +41,7 @@ If you are new to performance testing you may find [Caveats](#5-caveats) section
   * [3.1 :disable_gc](#31-disable_gc)
   * [3.2 :run_in_subprocess](#32-run_in_subprocess)
   * [3.3 :samples](#33-samples)
+  * [3.4 :format](#34-format)
 * [4. Filtering](#4-filtering)
 * [5. Caveats](#5-caveats)
 
@@ -355,6 +356,16 @@ The `perform_under` and computational complexity matchers allow to specify how m
 ```ruby
 RSpec::Benchmark.configure do |config|
   config.samples = 10
+end
+```
+
+### 3.4 `:format`
+
+The `perform_at_least` matcher uses the `:format` option to format the number of iterations when a failure message gets displayed. By default, the `:human` values is used to make numbers more readable. For example, the `12300 i/s` gets turned into `12.3k i/s`. If you rather have an exact numbers presented do:
+
+```ruby
+RSpec::Benchmark.configure do |config|
+  config.format = :raw
 end
 ```
 
