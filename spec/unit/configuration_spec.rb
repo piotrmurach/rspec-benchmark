@@ -87,4 +87,14 @@ RSpec.describe RSpec::Benchmark do
     expect(::Benchmark::Trend).to have_received(:infer_trend).with(
       [8, 64, 512, 4096, 8192], repeat: 10)
   end
+
+  it "uses the :format option in iterations matcher" do
+    RSpec::Benchmark.configure do |config|
+      config.format = :raw
+    end
+
+    expect {
+      expect { "x" * 1024 }.not_to perform_at_least(100)
+    }.to raise_error(%r{expected block not to perform at least 100 i/s, but performed \d+ \(± \d+%\) i/s})
+  end
 end

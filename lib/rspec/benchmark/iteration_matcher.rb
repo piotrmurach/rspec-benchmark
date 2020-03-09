@@ -13,7 +13,8 @@ module RSpec
           @iterations = iterations
           @time       = options.fetch(:time) { 0.2 }
           @warmup     = options.fetch(:warmup) { 0.1 }
-          @format     = options.fetch(:format) { :human }
+          @format     = options.fetch(:format) {
+                          RSpec::Benchmark.configuration.format }
           @bench      = ::Benchmark::Perf
         end
 
