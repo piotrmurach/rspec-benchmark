@@ -1,15 +1,17 @@
 # Change log
 
-## [v0.6.0] - 2020-03-x
+## [v0.6.0] - 2020-03-09
 
 ### Added
 * Add Formatter#format_unit for making numbers more readable
+* Add :format configuration option
 
 ### Changed
 * Change TimingMatcher to use new #cpu interface
 * Change IterationMatcher to use new #ips interface
 * Change IterationMatcher to format iterations with units
 * Change gemspec to add metadata, remove test artefacts
+* Change benchmark-perf, benchmark-trend & benchmark-malloc versions
 
 ### Fixed
 * Fix Ruby 2.7 warnings converting hash into keywowrd arguments
