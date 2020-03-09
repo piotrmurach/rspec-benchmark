@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'benchmark-perf'
+require "benchmark-perf"
 
 module RSpec
   module Benchmark
@@ -152,9 +152,9 @@ module RSpec
           return "was not a block" unless @actual.is_a?(Proc)
 
           if @ratio < 1
-            "performed slower by #{format('%.2f', (@ratio**-1))} times"
+            "performed slower by #{format("%.2f", (@ratio**-1))} times"
           elsif @ratio > 1
-            "performed faster by #{format('%.2f', @ratio)} times"
+            "performed faster by #{format("%.2f", @ratio)} times"
           else
             "performed by the same time"
           end
@@ -264,7 +264,7 @@ module RSpec
 
         def check_comparison(type)
           [:slower, :faster].include?(type) ||
-            (raise ArgumentError, 'comparison_type must be ' \
+            (raise ArgumentError, "comparison_type must be " \
                    ":faster or :slower, not `:#{type}`")
         end
       end # Matcher

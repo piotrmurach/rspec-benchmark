@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'benchmark-malloc'
+require "benchmark-malloc"
 
 module RSpec
   module Benchmark
@@ -150,10 +150,10 @@ module RSpec
 
         def objects_to_s(value)
           if value.respond_to?(:to_hash)
-            value.
-              sort_by { |k,v| k.to_s }.
-              map { |key, val| "#{val} #{key}" if @objects.keys.include?(key) }.
-              compact.join(" and ")
+            value
+              .sort_by { |k, v| k.to_s }
+              .map { |key, val| "#{val} #{key}" if @objects.keys.include?(key) }
+              .compact.join(" and ")
           else
             value
           end

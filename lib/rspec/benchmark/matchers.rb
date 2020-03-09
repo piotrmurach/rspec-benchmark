@@ -1,10 +1,10 @@
-# frozen_string_literal
+# frozen_string_literal: true
 
-require_relative 'allocation_matcher'
-require_relative 'comparison_matcher'
-require_relative 'complexity_matcher'
-require_relative 'iteration_matcher'
-require_relative 'timing_matcher'
+require_relative "allocation_matcher"
+require_relative "comparison_matcher"
+require_relative "complexity_matcher"
+require_relative "iteration_matcher"
+require_relative "timing_matcher"
 
 module RSpec
   module Benchmark

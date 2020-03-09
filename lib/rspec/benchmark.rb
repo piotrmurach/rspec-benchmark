@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'benchmark/configuration'
-require_relative 'benchmark/matchers'
-require_relative 'benchmark/version'
+require_relative "benchmark/configuration"
+require_relative "benchmark/matchers"
+require_relative "benchmark/version"
 
 module RSpec
   module Benchmark
