@@ -184,7 +184,7 @@ The `times` part is also optional.
 The performance timing of each matcher can be tweaked using the `within` and `warmup` matchers. These are expressed as seconds. By default `within` matcher is set to `0.2` and `warmup` matcher to `0.1` second respectively. To change these matchers values do:
 
 ```ruby
-expect { ... }.to perform_faster_than.within(0.4).warmup(0.2) { ... }
+expect { ... }.to perform_faster_than { ... }.within(0.4).warmup(0.2)
 ```
 
 The higher values for `within` and `warmup` the more accurate average readings and more stable tests at the cost of longer test suite overall runtime.
