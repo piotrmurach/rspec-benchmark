@@ -10,7 +10,7 @@ gemspec
 
 group :examples do
   gem "activerecord"
-  gem "sqlite3"
+  gem "sqlite3", platforms: :mri
   gem "fast_jsonapi"
 end
 
