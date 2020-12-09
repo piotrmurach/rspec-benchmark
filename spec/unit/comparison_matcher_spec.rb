@@ -20,9 +20,9 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
 
     expect {
       1 << 1
-    }.to perform_faster_than.within(0.3).warmup(0.2) {
+    }.to perform_faster_than {
       'x' * 10 * 1024
-    }.once
+    }.within(0.3).warmup(0.2).once
 
     expect(::Benchmark::Perf::Iteration).to have_received(:run).with(time: 0.3, warmup: 0.2).twice
   end
