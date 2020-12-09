@@ -32,17 +32,16 @@ jobs:
           - 2.5
           - 2.6
           - ruby-head
-          - jruby-9.2.13.0
-          - jruby-head
-          - truffleruby-head
+        allow_failure: [true]
         include:
           - ruby: 2.7
             os: ubuntu-latest
             coverage: true
+            allow_failure: true
     env:
       COVERAGE: ${{ matrix.coverage }}
       COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-    continue-on-error: ${{ endsWith(matrix.ruby, 'head') }}
+    continue-on-error: ${{ matrix.allow_failure }}
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby
