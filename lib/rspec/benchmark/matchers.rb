@@ -20,7 +20,7 @@ module RSpec
     # or you can include in globablly in a spec_helper.rb file:
     #
     #   RSpec.configure do |config|
-    #     config.inlucde(RSpec::Benchmark::Matchers)
+    #     config.include(RSpec::Benchmark::Matchers)
     #   end
     #
     # @api public
