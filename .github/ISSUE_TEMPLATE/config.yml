@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: RSpec::Benchmark Community Discussions
+    url: https://github.com/piotrmurach/rspec-benchmark/discussions
+    about: Suggest ideas, ask and answer questions
