@@ -5,14 +5,14 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/nxq3dr8xkafmgiv0?svg=true)][appveyor]
 [![Code Climate](https://codeclimate.com/github/piotrmurach/rspec-benchmark/badges/gpa.svg)][codeclimate]
 [![Coverage Status](https://coveralls.io/repos/github/piotrmurach/rspec-benchmark/badge.svg)][coverage]
-[![Inline docs](http://inch-ci.org/github/piotrmurach/rspec-benchmark.svg?branch=master)][inchpages]
+[![Inline docs](https://inch-ci.org/github/piotrmurach/rspec-benchmark.svg?branch=master)][inchpages]
 
-[gem]: http://badge.fury.io/rb/rspec-benchmark
+[gem]: https://badge.fury.io/rb/rspec-benchmark
 [gh_actions_ci]: https://github.com/piotrmurach/rspec-benchmark/actions?query=workflow%3ACI
 [appveyor]: https://ci.appveyor.com/project/piotrmurach/rspec-benchmark
 [codeclimate]: https://codeclimate.com/github/piotrmurach/rspec-benchmark
 [coverage]: https://coveralls.io/github/piotrmurach/rspec-benchmark
-[inchpages]: http://inch-ci.org/github/piotrmurach/rspec-benchmark
+[inchpages]: https://inch-ci.org/github/piotrmurach/rspec-benchmark
 
 > Performance testing matchers for RSpec to set expectations on speed, resources usage and scalability.
 
