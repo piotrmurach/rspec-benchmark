@@ -1,5 +1,10 @@
 # Change log
 
+## [v0.7.0]
+
+### Added
+* Change ComparisonMatcher to allow using `at_least` and `at_most` together
+
 ## [v0.6.0] - 2020-03-09
 
 ### Added

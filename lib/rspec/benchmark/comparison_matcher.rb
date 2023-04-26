@@ -9,15 +9,17 @@ module RSpec
       #
       # @api private
       class Matcher
+        DEFAULT_EXPECTED_COUNT_MATCHERS = { at_least: 1 }.freeze
+
         def initialize(expected, comparison_type, **options)
           check_comparison(comparison_type)
           @expected = expected
           @comparison_type = comparison_type
           @count      = 1
-          @count_type = :at_least
           @time       = options.fetch(:time) { 0.2 }
           @warmup     = options.fetch(:warmup) { 0.1 }
           @bench      = ::Benchmark::Perf::Iteration
+          @expected_count_matchers = {}
         end
 
         # Indicates this matcher matches against a block
@@ -45,14 +47,7 @@ module RSpec
 
           @ratio = @actual_ips / @expected_ips.to_f
 
-          case @count_type
-          when :at_most
-            at_most_comparison
-          when :exactly
-            exact_comparison
-          else
-            default_comparison
-          end
+          expected_count_matchers.all? { |type, count| matches_comparison?(type, count) }
         end
 
         # The time before measurements are taken
@@ -139,12 +134,11 @@ module RSpec
 
         # @api private
         def description
-          if @count == 1
-            "perform #{@comparison_type} than comparison block"
-          else
-            "perform #{@comparison_type} than comparison block " \
-            "by #{@count_type} #{@count} times"
-          end
+          main_description = "perform #{@comparison_type} than comparison block"
+          description_extra = comparison_description
+          return main_description if !description_extra || description_extra.empty?
+
+          [main_description, comparison_description].compact.join(' ')
         end
 
         # @api private
@@ -162,6 +156,13 @@ module RSpec
 
         private
 
+        def comparison_description
+          expected_count_matchers
+            .select { |_, count| count != 1 }
+            .map { |type, count| "by #{type} #{count} times" }
+            .join(' and ')
+        end
+
         def convert_count(n)
           case n
           when Numeric then n
@@ -175,8 +176,23 @@ module RSpec
         end
 
         def set_expected_times_count(type, n)
-          @count_type = type
-          @count = convert_count(n)
+          @expected_count_matchers ||= {}
+          @expected_count_matchers[type] = convert_count(n)
+        end
+
+        def expected_count_matchers
+          @expected_count_matchers.empty? ? DEFAULT_EXPECTED_COUNT_MATCHERS : @expected_count_matchers
+        end
+
+        def matches_comparison?(count_type, count)
+          case count_type
+          when :at_most
+            at_most_comparison(count)
+          when :exactly
+            exact_comparison(count)
+          else
+            default_comparison(count)
+          end
         end
 
         # At most comparison
@@ -201,11 +217,11 @@ module RSpec
         # @return [Boolean]
         #
         # @api private
-        def at_most_comparison
+        def at_most_comparison(count)
           if @comparison_type == :faster
-            1 < @ratio && @ratio < @count
+            1 < @ratio && @ratio < count
           else
-            @count**-1 < @ratio && @ratio < 1
+            count**-1 < @ratio && @ratio < 1
           end
         end
 
@@ -224,11 +240,11 @@ module RSpec
         # @return [Boolean]
         #
         # @api private
-        def exact_comparison
+        def exact_comparison(count)
           if @comparison_type == :faster
-            @count == @ratio.round
+            count == @ratio.round
           else
-            @count == (1.0 / @ratio).round
+            count == (1.0 / @ratio).round
           end
         end
 
@@ -254,11 +270,11 @@ module RSpec
         # @return [Boolean]
         #
         # @api private
-        def default_comparison
+        def default_comparison(count)
           if @comparison_type == :faster
-            @ratio > @count
+            @ratio > count
           else
-            @ratio < (1.0 / @count)
+            @ratio < (1.0 / count)
           end
         end
 

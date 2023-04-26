@@ -94,6 +94,28 @@ RSpec.describe RSpec::Benchmark::ComparisonMatcher::Matcher do
         }.to raise_error(/expected given block to perform faster than comparison block by at_most \d+ times, but performed faster by \d+.\d+ times/)
       end
     end
+
+    context 'with both at_least and at_most count' do
+      it "passes if the block performance falls in to the range" do
+        expect { 1 << 1 }.to perform_faster_than { 'x' * 10 * 1024 }.at_least(2).at_most(125)
+      end
+
+      it "fails if the block performance ratio is higher then indicated by at_least" do
+        expect {
+          expect { 1 << 1 }
+            .to perform_faster_than { 'x' * 10 * 1024 }
+            .at_least(2).at_most(15).times
+        }.to raise_error(/expected given block to perform faster than comparison block by at_least \d+ times and by at_most \d+ times, but performed faster by \d+.\d+ times/)
+      end
+
+      it "fails if the block performance ratio is lower then indicated by at_most" do
+        expect {
+          expect {
+            1 << 1
+          }.to perform_faster_than { 'x' * 10 * 1024 }.at_least(200).at_most(300).times
+        }.to raise_error(/expected given block to perform faster than comparison block by at_least \d+ times and by at_most \d+ times, but performed faster by \d+.\d+ times/)
+      end
+    end
   end
 
   context "expect { ... }.not_to perform_faster_than(...)" do
