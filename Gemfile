@@ -15,7 +15,9 @@ group :examples do
 end
 
 group :test do
-  gem "coveralls", "~> 0.8.22"
-  gem "simplecov", "~> 0.16.1"
+  if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("2.7.0")
+    gem "coveralls_reborn", "~> 0.28.0"
+    gem "simplecov", "~> 0.22.0"
+  end
   gem "yardstick", "~> 0.9.9"
 end
