@@ -23,7 +23,7 @@ RSpec.describe 'RSpec::Benchmark::TimingMatcher', '#perform_under' do
     }.to raise_error(/Repeat value: 0 needs to be greater than 0/)
   end
 
-  context "expect { ... }.to perfom_under(...).sample" do
+  context "expect { ... }.to perform_under(...).sample" do
     it "passes if the block performs under threshold" do
       expect {
         'x' * 1024 * 10
@@ -46,7 +46,7 @@ RSpec.describe 'RSpec::Benchmark::TimingMatcher', '#perform_under' do
       }.to_not perform_under(0.001).sample(2)
     end
 
-    it "fails if the block perfoms under threshold" do
+    it "fails if the block performs under threshold" do
       expect {
         expect {
           'x' * 1024 * 1024 * 10
